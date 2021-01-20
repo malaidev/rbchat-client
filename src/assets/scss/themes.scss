@@ -2,16 +2,16 @@
 @import "./icons.scss";
 
 //light mode
-@import "./bootstrap.scss";
-@import "./app.scss";
+// @import "./bootstrap.scss";
+// @import "./app.scss";
 
 //rtl mode
 // @import "./bootstrap.scss";
 // @import "./app-rtl.scss";
 
 //dark mode
-// @import "./bootstrap-dark.scss";
-// @import "./app-dark.scss";
+@import "./bootstrap-dark.scss";
+@import "./app-dark.scss";
 
 .nav-item{
     cursor: pointer;

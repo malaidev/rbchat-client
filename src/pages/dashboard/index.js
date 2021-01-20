@@ -6,10 +6,18 @@ import UserChat from "./UserChat/";
 
 import { connect } from "react-redux";
 
+import socketClient from 'socket.io-client';
+
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = { }
+    }
+
+    async componentDidMount() {
+      var socket = await socketClient("http://localhost:8080");
+      console.log(socket);
+      socket.emit('login', "asdfassd");
     }
 
     render() {
@@ -29,7 +37,8 @@ class Index extends Component {
 
 const mapStateToProps = (state) => {
     const { users } = state.Chat;
-    return { users };
+    const { user } = state.Auth;
+    return { users, user };
 };
 
 export default connect(mapStateToProps, {  })(Index);

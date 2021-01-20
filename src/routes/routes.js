@@ -14,13 +14,13 @@ const LockScreen = React.lazy(() => import("../pages/Auth/LockScreen"));
 
 // declare all routes
 const authProtectedRoutes = [
-  { path: "/dashboard", component: Dashboard },
+  { path: "/chat", component: Dashboard },
   { path: "/pages-starter", component: StarterPage },
 
   {
     path: "/",
     exact: true,
-    component: () => <Redirect to="/dashboard" />,
+    component: () => <Redirect to="/chat" />,
   },
 ];
 

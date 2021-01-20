@@ -5,13 +5,13 @@ import Routes from './routes/';
 import "./assets/scss/themes.scss";
 
 //fackbackend
-import fakeBackend from './helpers/fake-backend';
+// import fakeBackend from './helpers/fake-backend';
 
 // //Firebase helper
 // import { initFirebaseBackend } from "./helpers/firebase";
 
 // TODO
-fakeBackend();
+// fakeBackend();
 
 // const firebaseConfig = {
 // 	apiKey: process.env.REACT_APP_APIKEY,
