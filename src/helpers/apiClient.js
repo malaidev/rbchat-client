@@ -1,6 +1,6 @@
 import axios from 'axios';
 import config from "./../config";
-
+import {getLoggedInUser} from './authUtils';
 
 // default
 axios.defaults.baseURL = config.API_URL;
@@ -33,6 +33,16 @@ const setAuthorization = (token) => {
 
 
 class APIClient {
+
+    constructor() {
+      const user = getLoggedInUser();
+      if (user) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
+      }
+      else {
+        axios.defaults.headers.common['Authorization'] = null;
+      }
+    }
     /**
      * Fetches data from given url
      */
@@ -43,7 +53,7 @@ class APIClient {
     /**
      * post given data to url
      */
-    create = (url, data) => {
+    post = (url, data) => {
         return axios.post(url, data);
     }
 
