@@ -18,18 +18,15 @@ import {
   apiError
 } from './actions';
 
-//import socket from '../../helpers/socket';
-
 //Initilize firebase
 const fireBaseBackend = getFirebaseBackend();
-
 
 /**
  * Sets the session
  * @param {*} user 
  */
 
-const create = new APIClient().create;
+const postRequest = new APIClient().post;
 /**
  * Login the user
  * @param {*} payload - username and password 
@@ -40,11 +37,11 @@ function* login({ payload: { username, password, history } }) {
       const response = yield call(fireBaseBackend.loginUser, username, password);
       yield put(loginUserSuccess(response));
     } else {
-      const response = yield call(create, '/login', { username, password });
+      const response = yield call(postRequest, '/auth/login', { username, password });
       if (response.token) {
-        console.log("adfasdf");
-        //socket.emit('login', response);
         localStorage.setItem("authUser", JSON.stringify(response));
+        const res = yield call(new APIClient().get, '/api/all');
+        console.log(res);
         yield put(loginUserSuccess(response));
       }
       else {
@@ -86,7 +83,7 @@ function* register({ payload: { user } }) {
       const response = yield call(fireBaseBackend.registerUser, email, password);
       yield put(registerUserSuccess(response));
     } else {
-      const response = yield call(create, '/register', user);
+      const response = yield call(postRequest, '/auth/register', user);
       yield put(registerUserSuccess(response));
     }
         
@@ -110,7 +107,7 @@ function* forgetPassword({ payload: { email } }) {
               );
       }
     } else {
-      const response = yield call(create, '/forget-pwd', { email });
+      const response = yield call(postRequest, '/auth/forget-pwd', { email });
       yield put(forgetPasswordSuccess(response));
     }
   } catch (error) {
