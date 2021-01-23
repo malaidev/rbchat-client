@@ -6,10 +6,25 @@ import UserChat from "./UserChat/";
 
 import { connect } from "react-redux";
 
+import {updateAll} from '../../redux/actions';
+import api from '../../apis';
+import engine from '../../utils/engine'
+
 class Index extends Component {
   constructor(props) {
     super(props);
     this.state = { }
+  }
+
+  componentDidMount() {
+
+    api.getAllData()
+      .then(res => {
+        console.log(res);
+        const chatdata = engine.formatChatData(res);
+        console.log(chatdata);
+        this.props.updateAll(chatdata);
+      })
   }
     
   render() {
@@ -17,10 +32,10 @@ class Index extends Component {
     return (
       <React.Fragment>
         {/* chat left sidebar */}
-        <ChatLeftSidebar recentChatList={this.props.users} />
+        <ChatLeftSidebar chatdata={this.props.chatdata} recentChatList={this.props.messages} />
 
         {/* user chat */}
-        <UserChat recentChatList={this.props.users} />
+        <UserChat chatdata={this.props.chatdata} recentChatList={this.props.messages} />
                 
       </React.Fragment>
     );
@@ -28,9 +43,9 @@ class Index extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { users } = state.Chat;
+  const { rooms, users, messages } = state.Chat;
   const { user } = state.Auth;
-  return { users, user };
+  return { chatdata: {rooms, users}, messages, user };
 };
 
-export default connect(mapStateToProps, {  })(Index);
+export default connect(mapStateToProps, {updateAll})(Index);

@@ -43,9 +43,9 @@
 }
 
 .chat-message-list {
-    height: calc(100vh - 280px);
+    height: calc(100vh - 180px);
     @media (max-width: 991.98px) {
-        height: calc(100vh - 320px);
+        height: calc(100vh - 220px);
     }
 }
 

@@ -71,21 +71,21 @@ function UserProfileSidebar(props) {
 
                             <div className="mb-4 d-flex justify-content-center">
                                 {
-                                    props.activeUser.profilePicture ==="Null" ?
+                                    props.activeRoom.profilePicture ==="Null" ?
                                         <div className="avatar-lg">
                                             <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-24">
-                                                {props.activeUser.name.charAt(0)}
+                                                {props.activeRoom.name.charAt(0)}
                                             </span>
                                         </div>
-                                    : <img src={props.activeUser.profilePicture} className="rounded-circle avatar-lg img-thumbnail" alt="chatvia" />
+                                    : <img src={props.activeRoom.profilePicture} className="rounded-circle avatar-lg img-thumbnail" alt="chatvia" />
                                 }
                                 
                             </div>
 
-                            <h5 className="font-size-16 mb-1 text-truncate">{props.activeUser.name}</h5>
+                            <h5 className="font-size-16 mb-1 text-truncate">{props.activeRoom.name}</h5>
                             <p className="text-muted text-truncate mb-1">
                             {(() => {
-                                                                                    switch (props.activeUser.status) {
+                                                                                    switch (props.activeRoom.status) {
                                                                                         case "online":
                                                                                             return (
                                                                                                 <>
@@ -134,12 +134,12 @@ function UserProfileSidebar(props) {
 
                                             <div>
                                                 <p className="text-muted mb-1">{t('Name')}</p>
-                                                <h5 className="font-size-14">{props.activeUser.name}</h5>
+                                                <h5 className="font-size-14">{props.activeRoom.name}</h5>
                                             </div>
 
                                             <div className="mt-4">
                                                 <p className="text-muted mb-1">{t('Email')}</p>
-                                                <h5 className="font-size-14">{props.activeUser.email}</h5>
+                                                <h5 className="font-size-14">{props.activeRoom.email}</h5>
                                             </div>
 
                                             <div className="mt-4">
@@ -169,7 +169,7 @@ function UserProfileSidebar(props) {
                                 </Card>
 
                                 {
-                                    props.activeUser.isGroup === true &&
+                                    props.activeRoom.isGroup === true &&
                                     <Card className="mb-1 shadow-none border">
                                         {/* import collaps */}
                                         <CustomCollapse
@@ -244,9 +244,9 @@ function UserProfileSidebar(props) {
 }
 
 const mapStateToProps = (state) => {
-    const { users,active_user } = state.Chat;
+    const { messages,active_room } = state.Chat;
     const { userSidebar } = state.Layout;
-    return { users,active_user,userSidebar };
+    return { messages,active_room,userSidebar };
 };
 
 export default connect(mapStateToProps, { closeUserSidebar })(UserProfileSidebar);

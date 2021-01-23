@@ -236,8 +236,8 @@ class Groups extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { groups, active_user } = state.Chat;
-    return { groups,active_user };
+    const { groups, active_room } = state.Chat;
+    return { groups,active_room };
 };
 
 export default (connect(mapStateToProps, { createGroup })(withTranslation()(Groups)));
