@@ -33,6 +33,13 @@ const setLoggedInUser = (user) => {
 }
 
 /**
+ * Remove the logged in user
+ */
+const removeLoggedInUser = () => {
+  localStorage.removeItem('authUser');
+}
+
+/**
  * Returns the logged in user
  */
 const getLoggedInUser = () => {
@@ -40,4 +47,4 @@ const getLoggedInUser = () => {
     return user ? (typeof (user) == 'object' ? user : JSON.parse(user)) : null;
 }
 
-export { isUserAuthenticated, setLoggedInUser, getLoggedInUser };
+export { isUserAuthenticated, setLoggedInUser, getLoggedInUser, removeLoggedInUser };

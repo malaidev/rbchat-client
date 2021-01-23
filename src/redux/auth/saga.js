@@ -40,8 +40,6 @@ function* login({ payload: { username, password, history } }) {
       const response = yield call(postRequest, '/auth/login', { username, password });
       if (response.token) {
         localStorage.setItem("authUser", JSON.stringify(response));
-        const res = yield call(new APIClient().get, '/api/all');
-        console.log(res);
         yield put(loginUserSuccess(response));
       }
       else {
@@ -51,6 +49,7 @@ function* login({ payload: { username, password, history } }) {
     }
     history.push('/');
   } catch (error) {
+    console.log(error);
     yield put(apiError(error));
   }
 }

@@ -3,7 +3,7 @@ import { Dropdown, DropdownMenu, DropdownItem, DropdownToggle, Media, Button, In
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { openUserSidebar,setFullUser } from "../../../redux/actions";
+import { openUserSidebar,updateRooms } from "../../../redux/actions";
 
 function UserHead(props) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -27,11 +27,11 @@ function UserHead(props) {
 
     function deleteMessage()
     {
-         let allUsers = props.users;
+        let allUsers = props.messages;
         let copyallUsers = allUsers;
-        copyallUsers[props.active_user].messages =  [];
+        copyallUsers[props.active_room].messages =  [];
        
-        props.setFullUser(copyallUsers);
+        props.updateRooms(copyallUsers);
     }
 
     return (
@@ -45,14 +45,14 @@ function UserHead(props) {
                                             <i className="ri-arrow-left-s-line"></i></Link>
                                         </div>
                                         {
-                                            props.users[props.active_user].profilePicture !== "Null" ?
+                                            props.messages[props.active_room].profilePicture !== "Null" ?
                                                 <div className="mr-3">
-                                                    <img src={props.users[props.active_user].profilePicture} className="rounded-circle avatar-xs" alt="chatvia" />
+                                                    <img src={props.messages[props.active_room].profilePicture} className="rounded-circle avatar-xs" alt="chatvia" />
                                                 </div>
                                             :   <div className="chat-user-img align-self-center mr-3">
                                                     <div className="avatar-xs">
                                                         <span className="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                            {props.users[props.active_user].name.charAt(0)}
+                                                            {props.messages[props.active_room].name.charAt(0)}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -61,10 +61,10 @@ function UserHead(props) {
                                         <Media body className="overflow-hidden">
                                             <h5 className="font-size-16 mb-0 text-truncate">
                                             <Link to="#" onClick={(e) => openUserSidebar(e)} className="text-reset user-profile-show">
-                                            {props.users[props.active_user].name}
+                                            {props.messages[props.active_room].name}
                                             </Link> 
                                                                                 {(() => {
-                                                                                    switch (props.users[props.active_user].status) {
+                                                                                    switch (props.messages[props.active_room].status) {
                                                                                         case "online":
                                                                                             return (
                                                                                                 <>
@@ -141,8 +141,8 @@ function UserHead(props) {
 
 
 const mapStateToProps = (state) => {
-    const { users,active_user } = state.Chat;
-    return { ...state.Layout,users,active_user };
+    const { messages,active_room } = state.Chat;
+    return { ...state.Layout,messages,active_room };
 };
 
-export default connect(mapStateToProps, { openUserSidebar,setFullUser })(UserHead);
+export default connect(mapStateToProps, { openUserSidebar,updateRooms })(UserHead);

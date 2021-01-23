@@ -1,14 +1,24 @@
 
 import config from "./../config";
 import io from 'socket.io-client';
-import {getLoggedInUser} from './authUtils';
 
-const user = getLoggedInUser();
-const token = user?user.token:"";
+var socket = null;
 
-const socket = io(config.API_URL, {
-  query: 'token=' + token,
-  forceNew: true
-});
+const connect = (token) => {
+  socket = io(config.API_URL, {
+    query: 'token=' + token,
+    forceNew: true
+  });
+  return socket;
+}
 
-export default socket;
+const disconnect = () => {
+  io.sockets.connected[socket.id].disconnect();
+  socket = null;
+}
+
+const getSocket = () => {
+  return socket;
+}
+
+export default { Socket: getSocket, connect, disconnect };

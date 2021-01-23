@@ -1,28 +1,30 @@
-import {
-    CHAT_USER,ACTIVE_USER,FULL_USER, ADD_LOGGED_USER, CREATE_GROUP
-} from './constants';
-
+import * as types from './constants';
 
 export const chatUser = () => ({
-    type: CHAT_USER
-});
-
-export const activeUser = (userId) => ({
-    type: ACTIVE_USER,
-    payload : userId
-});
-
-export const setFullUser = (fullUser) => ({
-    type: FULL_USER,
-    payload : fullUser
+  type: types.CHAT_USER
 });
 
 export const addLoggedinUser = (userData) => ({
-    type: ADD_LOGGED_USER,
-    payload : userData
+  type: types.ADD_LOGGED_USER,
+  payload : userData
 });
 
 export const createGroup = (groupData) => ({
-    type : CREATE_GROUP,
-    payload : groupData
+  type : types.CREATE_GROUP,
+  payload : groupData
 })
+
+export const updateAll = (chatdata) => ({
+  type : types.UPDATE_ALL,
+  payload : chatdata
+})
+
+export const updateRooms = (rooms) => ({
+  type: types.UPDATE_ROOMS,
+  payload : rooms
+});
+
+export const setActiveRoom = (userId) => ({
+  type: types.ACTIVE_ROOM,
+  payload : userId
+});
