@@ -24,7 +24,17 @@ export const updateRooms = (rooms) => ({
   payload : rooms
 });
 
-export const setActiveRoom = (userId) => ({
+export const updateUsers = (users) => ({
+  type: types.UPDATE_USERS,
+  payload : users
+});
+
+export const setActiveRoom = (user_id) => ({
   type: types.ACTIVE_ROOM,
-  payload : userId
+  payload : user_id
+});
+
+export const updateWriteAts = (write_ats) => ({
+  type: types.UPDATE_WRITE_ATS,
+  payload : write_ats
 });

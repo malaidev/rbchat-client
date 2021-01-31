@@ -164,3 +164,20 @@
     }
 }
 
+.badge-right {
+  float: right;
+  margin-right: 20px;
+}
+
+.contact-list {
+  
+  li {
+    &.active {
+        background-color: $light;
+    }
+    &.hover {
+      background-color: $light;
+      transition: all 0.4s;
+    }
+  }
+}

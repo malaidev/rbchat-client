@@ -86,10 +86,10 @@
     }
 
     .conversation-list {
-        margin-bottom: 24px;
+        // margin-bottom: 24px;
         display: inline-flex;
         position: relative;
-        align-items: flex-end;
+        align-items: flex-start;
 
         .ctext-wrap {
             display: flex;
@@ -97,21 +97,21 @@
         }
 
         .ctext-wrap-content {
-            padding: 12px 20px;
-            background-color: $chat-primary-bg;
-            border-radius: 8px 8px 8px 0;
+            padding: 8px 14px;
+            background-color: $chat-secondary-bg;
+            border-radius: 0px 8px 8px 8px;
             color: $white;
             position: relative;
 
-            &:before {
-                content: "";
-                position: absolute;
-                border: 5px solid transparent;
-                border-left-color: $chat-primary-bg;
-                border-top-color: $chat-primary-bg;
-                left: 0;
-                bottom: -10px;
-            }
+            // &:before {
+            //     content: "";
+            //     position: absolute;
+            //     border: 5px solid transparent;
+            //     border-left-color: $chat-primary-bg;
+            //     border-top-color: $chat-primary-bg;
+            //     left: 0;
+            //     bottom: -10px;
+            // }
         }
 
         .conversation-name {
@@ -135,7 +135,7 @@
         .chat-time {
             font-size: 12px;
             margin-top: 4px;
-            text-align: right;
+            text-align: left;
             color: rgba($white, 0.5);
         }
 
@@ -180,7 +180,7 @@
         }
 
         .chat-time {
-            text-align: left;
+            text-align: right;
             color: $gray-600;
         }
 
@@ -197,13 +197,13 @@
                     text-align: right;
                     border-radius: 8px 8px 0px 8px;
 
-                    &:before {
-                        border: 5px solid transparent;
-                        border-top-color: $chat-secondary-bg;
-                        border-right-color: $chat-secondary-bg;
-                        left: auto;
-                        right: 0px;
-                    }
+                    // &:before {
+                    //     border: 5px solid transparent;
+                    //     border-top-color: $chat-secondary-bg;
+                    //     border-right-color: $chat-secondary-bg;
+                    //     left: auto;
+                    //     right: 0px;
+                    // }
                 }
             }
 
@@ -219,9 +219,9 @@
 }
 
 .chat-conversation {
-    height: calc(100vh - 184px);
+    height: calc(100vh - 162px);
     @media (max-width: 991.98px) {
-        height: calc(100vh - 152px);
+        height: calc(100vh - 138px);
     }
 }
 
@@ -271,3 +271,82 @@
         }
     }
 }
+
+
+.peer-invite-pane {
+  height: calc(100vh - 90px);
+  @media (max-width: 991.98px) {
+      height: calc(100vh - 58px);
+  }
+  width: 100%;
+  display: flex;
+
+  .form-box {
+    margin: auto;
+
+    .desc-box {
+      margin-bottom: 20px;
+
+      .peer-name {
+        color: #6153c8;
+        font-weight: bold;
+        font-size: 130%;
+      }
+    }
+
+    .button-box {
+      width: 100%;
+      display: flex;
+      Button {
+        margin: auto;
+        height: 40px;
+        border-radius: 20px;
+      }
+    }
+  }
+}
+
+.msg-check {
+  float: right;
+  margin: 5px -5px 0px 10px;
+  font-size: 20px;
+  color: #abb4d2;
+  line-height: 10px;
+  width: 25px;
+}
+
+.typing-view {
+  width: 100%;
+  //height: 20px;
+  background-color: $card-bg;
+  margin-top: -30px;
+  position: absolute;
+  bottom: 0px;
+  z-index: 2147483647;
+  font-size: 12px;
+  padding: 5px 0 5px 1.5rem;
+  min-height: 5px;
+}
+
+.chat-input {
+  padding: 2px 1.5rem 1.5rem 1.5rem;
+}
+
+.chat-list-wrapper {
+  position: relative;
+}
+
+@media (max-width: 991px) {
+  .typing-view {
+    padding: 3px 0 3px 1rem;
+  }
+  .chat-input {
+    padding: 2px 1rem 1rem 1rem;
+  }
+}
+
+.chat-list-wrapper .chat-conversation 
+.list-unstyled li:last-child div.conversation-list{
+  margin-bottom: 20px;
+}
+
