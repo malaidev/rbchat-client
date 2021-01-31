@@ -13,8 +13,10 @@ axios.interceptors.response.use(function (response) {
     return response.data ? response.data : response;
 }, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
-    let message;
-    alert(error);
+    let message = error.message || error;
+    if (!error.response)
+      return Promise.reject(message);
+      
     switch (error.response.status) {
         case 500: message = 'Internal Server Error'; break;
         case 401: 
