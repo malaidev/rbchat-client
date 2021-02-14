@@ -28,13 +28,16 @@ const Login = (props) => {
     props.apiError("");
   }
   
-  useEffect(clearError, []);
+  useEffect(() => {
+    if (props.error)
+      setTimeout(clearError, 3000);
+  }, [props.error]);
 
   // validation
   const formik = useFormik({
     initialValues: {
-      email: 'Intel',
-      password: '123456'
+      email: 'magic0619',
+      password: '1234567890'
     },
     validationSchema: Yup.object({
       email: Yup.string().required('Please Enter Your Username'),

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { DropdownMenu, DropdownItem, DropdownToggle, UncontrolledDropdown, Modal, ModalHeader, ModalBody, CardBody, Button, ModalFooter } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, CardBody, Button, ModalFooter, /*DropdownMenu, DropdownItem, DropdownToggle, UncontrolledDropdown*/ } from "reactstrap";
 import { connect } from "react-redux";
 
 import SimpleBar from "simplebar-react";
@@ -23,7 +23,7 @@ import engine from "../../../utils/engine";
 import api from '../../../apis';
 
 //i18n
-import { useTranslation } from 'react-i18next';
+//import { useTranslation } from 'react-i18next';
 
 function UserChat(props) {
 
@@ -32,7 +32,7 @@ function UserChat(props) {
   const [modal, setModal] = useState(false);
 
   /* intilize t variable for multi language implementation */
-  const { t } = useTranslation();
+  //const { t } = useTranslation();
 
   const { rooms, users, me } = props.chatdata;
 
@@ -77,7 +77,18 @@ function UserChat(props) {
       ref.current.recalculate();
       scrolltoBottom();
     }
-  });
+  }, [props.active_room, ref.current]);
+
+  useEffect(() => {
+    if (ref.current && ref.current.el)
+    {
+      let offset = ref.current.getScrollElement().scrollHeight - ref.current.getScrollElement().scrollTop;
+      if ((offset <= ref.current.el.clientHeight + 200) ||
+      (chatMessages[chatMessages.length - 1].from === me.user_id)) {
+        scrolltoBottom();
+      }
+    }
+  }, [chatMessages.length]);
 
   const toggle = () => setModal(!modal);
 
@@ -142,15 +153,15 @@ function UserChat(props) {
     }
   }
 
-  const deleteMessage = (id) => {
-    let messages = chatMessages;
+  // const deleteMessage = (id) => {
+  //   let messages = chatMessages;
 
-    var filtered = messages.filter(function (item) {
-      return item.id !== id;
-    });
+  //   var filtered = messages.filter(function (item) {
+  //     return item.id !== id;
+  //   });
 
-    setChatMessages(filtered);
-  }
+  //   setChatMessages(filtered);
+  // }
 
   const peerInvite = (vuser_id) => {
     const new_room_for_api = {
@@ -296,18 +307,17 @@ function UserChat(props) {
 
                                   </div>
                                   {
-                                    !message.isTyping &&
-                                    <UncontrolledDropdown className="align-self-start">
-                                      <DropdownToggle tag="a">
-                                        <i className="ri-more-2-fill"></i>
-                                      </DropdownToggle>
-                                      <DropdownMenu>
-                                        <DropdownItem>{t('Copy')} <i className="ri-file-copy-line float-right text-muted"></i></DropdownItem>
-                                        <DropdownItem>{t('Save')} <i className="ri-save-line float-right text-muted"></i></DropdownItem>
-                                        <DropdownItem onClick={toggle}>Forward <i className="ri-chat-forward-line float-right text-muted"></i></DropdownItem>
-                                        <DropdownItem onClick={() => deleteMessage(message.id)}>Delete <i className="ri-delete-bin-line float-right text-muted"></i></DropdownItem>
-                                      </DropdownMenu>
-                                    </UncontrolledDropdown>
+                                    // <UncontrolledDropdown className="align-self-start">
+                                    //   <DropdownToggle tag="a">
+                                    //     <i className="ri-more-2-fill"></i>
+                                    //   </DropdownToggle>
+                                    //   <DropdownMenu>
+                                    //     <DropdownItem>{t('Copy')} <i className="ri-file-copy-line float-right text-muted"></i></DropdownItem>
+                                    //     <DropdownItem>{t('Save')} <i className="ri-save-line float-right text-muted"></i></DropdownItem>
+                                    //     <DropdownItem onClick={toggle}>Forward <i className="ri-chat-forward-line float-right text-muted"></i></DropdownItem>
+                                    //     <DropdownItem onClick={() => deleteMessage(message.id)}>Delete <i className="ri-delete-bin-line float-right text-muted"></i></DropdownItem>
+                                    //   </DropdownMenu>
+                                    // </UncontrolledDropdown>
                                   }
 
                                 </div>

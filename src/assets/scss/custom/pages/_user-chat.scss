@@ -172,6 +172,9 @@
     }
 
     .right {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
 
         .chat-avatar {
             order: 3;
@@ -185,8 +188,8 @@
         }
 
         .conversation-list {
-            float: right;
-            text-align: right;
+            //float: right;
+            //text-align: right;
 
             .ctext-wrap {
 
@@ -194,7 +197,7 @@
                     order: 2;
                     background-color: $chat-secondary-bg;
                     color: $dark;
-                    text-align: right;
+                    //text-align: right;
                     border-radius: 8px 8px 0px 8px;
 
                     // &:before {
@@ -345,8 +348,16 @@
   }
 }
 
-.chat-list-wrapper .chat-conversation 
-.list-unstyled li:last-child div.conversation-list{
-  margin-bottom: 20px;
+.conversation-list {
+  max-width: calc(100% - 100px);
+  .user-chat-content {
+    max-width: 100%;
+    .ctext-wrap-content {
+      max-width: 100%;
+      p {
+        overflow-wrap: break-word;
+      }
+    }
+  }
 }
 

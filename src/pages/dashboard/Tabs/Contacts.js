@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { /*UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem,*/
-        Media, Button, Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledTooltip, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, } from 'reactstrap';
+        Media, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, /*UncontrolledTooltip*/} from 'reactstrap';
 import SimpleBar from "simplebar-react";
 import { connect } from "react-redux";
 import { withTranslation } from 'react-i18next';
@@ -23,7 +23,8 @@ function sortContacts(users, word = ""){
       let isUser = user.user_name.toLocaleLowerCase().includes(word);
       let teamstr = "team-" + pad(user.team_id, 3);
       let isTeam = teamstr.includes(word);
-      if (!isUser && !isTeam)
+      let isNick = user.user_nickname.toLocaleLowerCase().includes(word);
+      if (!isUser && !isTeam && !isNick)
         continue;
     }
     let group = user.team_id;
@@ -41,16 +42,15 @@ function Contacts (props){
   const {users, me} = props.chatdata;
 
   const [modal, setModal] = useState(false);
-  const [contacts, setContacts] = useState(sortContacts(users));
   const [searchWord, setSearchWord] = useState("");
-
+  const [contacts, setContacts] = useState(sortContacts(users, searchWord));
   const toggle = () => setModal(!modal);
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    setContacts(sortContacts(users));
-  }, [users]);
+    setContacts(sortContacts(users, searchWord));
+  }, [users, searchWord]);
     
   const openPeerRoom = (e, user) => {
 
@@ -97,16 +97,14 @@ function Contacts (props){
 
   const handleChange = (e) => {
     setSearchWord(e.target.value);
-    setContacts(sortContacts(users, e.target.value));
   }
     
   return (
     <React.Fragment>
     <div>
       <div className="p-4">
-        <div className="user-chat-nav float-right">
+        {/* <div className="user-chat-nav float-right">
           <div id="add-contact">
-            {/* Button trigger modal */}
             <Button type="button" color="link" onClick={toggle} className="text-decoration-none text-muted font-size-18 py-0">
               <i className="ri-user-add-line"></i>
             </Button>
@@ -114,7 +112,7 @@ function Contacts (props){
           <UncontrolledTooltip target="add-contact" placement="bottom">
             Add Contact
           </UncontrolledTooltip>
-        </div>
+        </div> */}
         <h4 className="mb-4">Contacts</h4>
 
         {/* Start Add contact Modal */}

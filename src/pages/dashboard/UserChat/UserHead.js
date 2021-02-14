@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { Dropdown, DropdownMenu, DropdownItem, DropdownToggle, Media, Button, Input, Row, Col } from "reactstrap";
+import React from 'react';
+import { Row, Col, Media, /*Dropdown, DropdownMenu, DropdownItem, DropdownToggle, Button, Input*/ } from "reactstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { openUserSidebar,updateRooms } from "../../../redux/actions";
 
 function UserHead(props) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [dropdownOpen1, setDropdownOpen1] = useState(false);
+  //const [dropdownOpen, setDropdownOpen] = useState(false);
+  //const [dropdownOpen1, setDropdownOpen1] = useState(false);
 
-  const toggle = () => setDropdownOpen(!dropdownOpen);
-  const toggle1 = () => setDropdownOpen1(!dropdownOpen1);
+  //const toggle = () => setDropdownOpen(!dropdownOpen);
+  //const toggle1 = () => setDropdownOpen1(!dropdownOpen1);
 
   const openUserSidebar = (e) => {
     e.preventDefault();
@@ -25,14 +25,14 @@ function UserHead(props) {
     }
   }
 
-  function deleteMessage()
-  {
-    let allUsers = props.messages;
-    let copyallUsers = allUsers;
-    copyallUsers[props.active_room].messages =  [];
+  // function deleteMessage()
+  // {
+  //   let allUsers = props.messages;
+  //   let copyallUsers = allUsers;
+  //   copyallUsers[props.active_room].messages =  [];
     
-    props.updateRooms(copyallUsers);
-  }
+  //   props.updateRooms(copyallUsers);
+  // }
 
   return (
     <React.Fragment>
@@ -103,7 +103,7 @@ function UserHead(props) {
               <Col sm={8} xs={4} >
                 <ul className="list-inline user-chat-nav text-right mb-0">
                                 
-                  <li className="list-inline-item">
+                  {/* <li className="list-inline-item">
                     <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                       <DropdownToggle color="none" className="btn nav-btn " type="button" >
                         <i className="ri-search-line"></i>
@@ -114,15 +114,15 @@ function UserHead(props) {
                         </div>
                       </DropdownMenu>
                     </Dropdown>
-                  </li>
+                  </li> */}
 
-                  <li className="list-inline-item d-none d-lg-inline-block">
+                  {/* <li className="list-inline-item d-none d-lg-inline-block">
                     <Button type="button" color="none" onClick={(e) => openUserSidebar(e)} className="nav-btn user-profile-show">
                       <i className="ri-user-2-line"></i>
                     </Button>
-                  </li>
+                  </li> */}
 
-                  <li className="list-inline-item">
+                  {/* <li className="list-inline-item">
                     <Dropdown isOpen={dropdownOpen1} toggle={toggle1} >
                       <DropdownToggle className="btn nav-btn " color="none" type="button" >
                         <i className="ri-more-fill"></i>
@@ -134,7 +134,7 @@ function UserHead(props) {
                         <DropdownItem onClick={(e)=>deleteMessage(e)}>Delete <i className="ri-delete-bin-line float-right text-muted"></i></DropdownItem>
                       </DropdownMenu>
                     </Dropdown>
-                  </li>
+                  </li> */}
                                 
                 </ul>
               </Col>

@@ -29,9 +29,9 @@ class Index extends Component {
 
     api.getAllData()
       .then(res => {
-        console.log(res);
+        console.log("Raw Data", res);
         const chatdata = engine.formatChatData(res);
-        console.log(chatdata);
+        console.log("Formatted Data", chatdata);
         this.props.updateAll(chatdata);
       })
       .catch(console.log);
