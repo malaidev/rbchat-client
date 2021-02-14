@@ -37,3 +37,19 @@
   justify-content: center;
   width: 100%;
 }
+
+.avatar-xs .avatar-title{
+  font-size: 0.95rem;
+}
+
+.avatar-lg .avatar-title{
+  font-size: 1.7rem;
+}
+
+.avatar-align-center {
+  margin: auto;
+}
+
+.avatar-container {
+  display: flex;
+}
