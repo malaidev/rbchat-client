@@ -1,3 +1,5 @@
+import config from '../config';
+import {getLoggedInUser} from '../helpers/authUtils';
 
 function formatRoomData(room, users, me) {
   var i;
@@ -127,6 +129,14 @@ function removeTyping(room, user_id) {
     room.typings.splice(index, 1);
 }
 
+function getDownloadLink(path, name) {
+  const user = getLoggedInUser();
+  var link = config.API_URL + path;
+  if (name) link += "?name=" + name;
+  if (user && user.token) link += "&guid=" + user.token;
+  return link;
+}
+
 export default {
   // connectSocket,
   // disconnectSocket,
@@ -139,4 +149,5 @@ export default {
   calculateUnreadMessages,
   addTyping,
   removeTyping,
+  getDownloadLink
 };

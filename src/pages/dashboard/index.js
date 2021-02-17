@@ -48,6 +48,16 @@ class Index extends Component {
         let newWriteAts = {...this.props.write_ats};
         newWriteAts[room_id] = message.time;
         this.props.updateWriteAts(newWriteAts);
+
+        if (message.id) {
+          let newRooms = {...this.props.chatdata.rooms};
+          let msg = newRooms[room_id].messages.find(msg => msg.id === message.id);
+          if (msg) {
+            let index = newRooms[room_id].messages.indexOf(msg);
+            newRooms[room_id].messages[index] = message;
+            this.props.updateRooms(newRooms);
+          }
+        }
       }
     });
     
