@@ -7,13 +7,9 @@ import config from '../../../config';
 var last_typing = 0;
 
 function ChatInput(props) {
+
   const [textMessage, settextMessage] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [file, setfile] = useState({
-    name : "",
-    size : ""
-  });
-  const [fileImage, setfileImage] = useState("")
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -37,17 +33,12 @@ function ChatInput(props) {
 
   //function for file input change
   const handleFileChange = e => {
-    if(e.target.files.length !==0 )
-    setfile({
-      name : e.target.files[0].name,
-      size : e.target.files[0].size
-    })
-  }
+    if(e.target.files.length !== 0) {
+      const file = e.target.files[0];
+      
+      props.onAddMessage(file, "fileMessage");
+    }
 
-  //function for image input change
-  const handleImageChange = e => {
-    if(e.target.files.length !==0 )
-    setfileImage(URL.createObjectURL(e.target.files[0]))
   }
 
   //function for image input change
@@ -66,21 +57,6 @@ function ChatInput(props) {
       props.onAddMessage(textMessage, "textMessage");
       settextMessage("");
     }
-
-    //if file input value is not empty then call onAddMessage function
-    if(file.name !== "") {
-      props.onAddMessage(file, "fileMessage");
-      setfile({
-        name : "",
-        size : ""
-      })
-    }
-
-    //if image input value is not empty then call onAddMessage function
-    if(fileImage !== "") {
-      props.onAddMessage(fileImage, "imageMessage");
-      setfileImage("")
-    }
   }
 
   return (
@@ -97,13 +73,13 @@ function ChatInput(props) {
               <div className="chat-input-links ml-md-2">
                 <ul className="list-inline mb-0">
                   <li className="list-inline-item">
-                  <ButtonDropdown className="emoji-dropdown" direction="up" isOpen={isOpen} toggle={toggle}>
-                    <DropdownToggle id="emoji" color="link" className="text-decoration-none font-size-16 btn-lg waves-effect">
-                      <i className="ri-emotion-happy-line"></i>
-                    </DropdownToggle>
-                    <DropdownMenu className="dropdown-menu-lg-right">
-                      <Picker onSelect={addEmoji} />
-                    </DropdownMenu>
+                    <ButtonDropdown className="emoji-dropdown" direction="up" isOpen={isOpen} toggle={toggle}>
+                      <DropdownToggle id="emoji" color="link" className="text-decoration-none font-size-16 btn-lg waves-effect">
+                        <i className="ri-emotion-happy-line"></i>
+                      </DropdownToggle>
+                      <DropdownMenu className="dropdown-menu-lg-right">
+                        <Picker onSelect={addEmoji} />
+                      </DropdownMenu>
                     </ButtonDropdown>
                     <UncontrolledTooltip target="emoji" placement="top">
                       Emoji
@@ -121,7 +97,7 @@ function ChatInput(props) {
                   <li className="list-inline-item input-file">
                     <Label id="images" className="mr-1 btn btn-link text-decoration-none font-size-16 btn-lg waves-effect">
                       <i className="ri-image-fill"></i>
-                    <Input onChange={(e) => handleImageChange(e)} accept="image/*" type="file" name="fileInput" size="60" />
+                    <Input onChange={(e) => handleFileChange(e)} accept="image/*" type="file" name="fileInput" size="60" />
                     </Label>   
                     <UncontrolledTooltip target="images" placement="top">
                       Images

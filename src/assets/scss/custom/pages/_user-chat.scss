@@ -266,13 +266,13 @@
 }
 
 @media (min-width: 992px){
-    .emoji-dropdown{
-        .dropdown-menu-lg-right {
-            right: 0!important;
-            left: auto!important;
-            width: 360px!important;
-        }
+  .emoji-dropdown{
+    .dropdown-menu-lg-right {
+        right: 0!important;
+        //left: auto!important;
+        width: 360px!important;
     }
+  }
 }
 
 
@@ -325,7 +325,7 @@
   margin-top: -30px;
   position: absolute;
   bottom: 0px;
-  z-index: 2147483647;
+  z-index: 1000;
   font-size: 12px;
   padding: 5px 0 5px 1.5rem;
   min-height: 5px;
@@ -361,3 +361,6 @@
   }
 }
 
+.gray-layer {
+  background: rgba(0, 0, 0, 0.4);
+}

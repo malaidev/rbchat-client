@@ -58,6 +58,16 @@ class APIClient {
     }
 
     /**
+     * Fetches data from given url
+     */
+    download = (url) => {
+      const headers = {
+        responseType: 'blob'
+      };
+      return axios.get(url, {headers})
+    }
+
+    /**
      * post given data to url
      */
     post = (url, data) => {

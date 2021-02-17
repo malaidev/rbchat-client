@@ -92,14 +92,14 @@ function UserChat(props) {
 
   const toggle = () => setModal(!modal);
 
-  const addMessage = (message, type) => {
+  const addMessage = (data, type) => {
     var messageObj = null;
 
     //matches the message type is text, file or image, and create object according to it
     switch (type) {
       case "textMessage":
         messageObj = {
-          content: message,
+          content: data,
           type: 1,
           time: new Date(),
           from: me.user_id
@@ -108,24 +108,20 @@ function UserChat(props) {
 
       case "fileMessage":
         messageObj = {
-          content: 'file',
-          fileMessage: message.name,
-          fileSize: message.size,
+          id: "tmp" + Date.now(),
+          content: data.name,
+          size: data.size,
           type: 2,
           time: new Date(),
-          from: me.user_id
+          from: me.user_id,
         }
         break;
 
       case "imageMessage":
-        var imageMessage = [
-          { image: message },
-        ]
-
         messageObj = {
-          content: 'image',
-          imageMessage: imageMessage,
-          imageSize: message.size,
+          id: "tmp" + Date.now(),
+          content: data.name,
+          size: data.size,
           type: 3,
           time: new Date(),
           from: me.user_id
@@ -137,14 +133,38 @@ function UserChat(props) {
     }
 
     const newRooms = {...rooms};
-    newRooms[props.active_room].messages.push(messageObj);
-    //newRooms[props.active_room].isTyping = false;
+    newRooms[props.active_room].messages.push({...messageObj, status: "Uploading..."});
     props.updateRooms(newRooms);
 
-    //scrolltoBottom();
-
-    api.addNewMessage(props.active_room, messageObj);
-    api.updateReadAt(props.active_room, messageObj.time);
+    if (type === "textMessage") {
+      api.addNewMessage(props.active_room, messageObj);
+      api.updateReadAt(props.active_room, messageObj.time);
+    }
+    else if (type === "fileMessage") {
+      api.uploadFile(data, messageObj)
+        .then(res => {
+          if (res.success) {
+            if (data.type && data.type.startsWith("image/"))
+              messageObj.type = 3;
+            const newObj = {
+              ...messageObj,
+              path: res.path,
+            };
+            messageObj.status = "";
+            api.addNewMessage(props.active_room, newObj);
+            api.updateReadAt(props.active_room, newObj.time);
+          }
+          else {
+            messageObj.status = res.message;
+            messageObj.error = true;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          messageObj.status = "Upload Failed";
+          messageObj.error = true;
+        });
+    }
   }
 
   const scrolltoBottom = () => {
@@ -279,23 +299,35 @@ function UserChat(props) {
                                 <div className="ctext-wrap">
                                   <div className="ctext-wrap-content">
                                     {
-                                      message.content &&
+                                      message.type === 1 && message.content &&
                                       <p className="mb-0">
                                         {message.content}
                                       </p>
                                     }
                                     {
                                       message.type === 2 &&
-                                      // image list component
-                                      <ImageList images={message.imageMessage} />
+                                      //file input component
+                                      <FileList file={message}/>
                                     }
                                     {
                                       message.type === 3 &&
-                                      //file input component
-                                      <FileList fileName={message.fileMessage} fileSize={message.fileSize} />
+                                      // image list component
+                                      <ImageList file={message} />
                                     }
 
                                     <div className="chat-time mb-0">
+                                      {
+                                        message.type === 2 && message.status &&
+                                          <span 
+                                            className="align-middle" 
+                                            style={{
+                                              marginRight: 20, 
+                                              color: message.error?'#FF5555':'auto'
+                                            }}
+                                          >
+                                            {message.status}
+                                          </span>
+                                      }
                                       <i className="ri-time-line align-middle"></i> <span className="align-middle">{time_str}</span>
                                       {
                                         isMe &&
