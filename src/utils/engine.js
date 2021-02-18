@@ -1,6 +1,12 @@
 import config from '../config';
 import {getLoggedInUser} from '../helpers/authUtils';
 
+function formatMessages(messages) {
+  for (var i = 0; i < messages.length; i++)
+    messages[i].time = new Date(messages[i].time);
+  return messages;
+}
+
 function formatRoomData(room, users, me) {
   var i;
   if (room.room_type === 1 && room.room_name === "__peer2peer") {
@@ -145,6 +151,7 @@ export default {
   formatRoomData,
   formatChatData,
   formatUserInfo,
+  formatMessages,
   date2str,
   calculateUnreadMessages,
   addTyping,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Modal, ModalHeader, ModalBody, CardBody, Button, ModalFooter, /*DropdownMenu, DropdownItem, DropdownToggle, UncontrolledDropdown*/ } from "reactstrap";
 import { connect } from "react-redux";
-
+import ScrollView from "react-inverted-scrollview";
 import SimpleBar from "simplebar-react";
 
 import { withRouter } from 'react-router-dom';
@@ -21,7 +21,8 @@ import { openUserSidebar, updateRooms, setActiveRoom, updateAll, updateWriteAts 
 import engine from "../../../utils/engine";
 
 import api from '../../../apis';
-
+import 'simplebar/dist/simplebar.min.css';
+import global from '../../../helpers/global';
 //i18n
 //import { useTranslation } from 'react-i18next';
 
@@ -82,10 +83,19 @@ function UserChat(props) {
   useEffect(() => {
     if (ref.current && ref.current.el)
     {
-      let offset = ref.current.getScrollElement().scrollHeight - ref.current.getScrollElement().scrollTop;
-      if ((offset <= ref.current.el.clientHeight + 200) ||
-      (chatMessages[chatMessages.length - 1].from === me.user_id)) {
-        scrolltoBottom();
+      if (global.scrollToItem) {
+
+        const item = document.getElementById(global.scrollToItem);
+        console.log(item.offsetTop);
+        ref.current.getScrollElement().scrollTop = item.offsetTop - 50;
+        global.scrollToItem = null;
+      }
+      else {
+        let offset = ref.current.getScrollElement().scrollHeight - ref.current.getScrollElement().scrollTop;
+        if ((offset <= ref.current.el.clientHeight + 200) ||
+        (chatMessages[chatMessages.length - 1].from === me.user_id)) {
+          scrolltoBottom();
+        }
       }
     }
   }, [chatMessages.length]);
@@ -214,6 +224,12 @@ function UserChat(props) {
     }
   }
 
+  const onWheel = (event) => {
+    if (event.deltaY < 0 && ref.current.getScrollElement().scrollTop === 0) {
+      api.getMoreMessages(rooms[props.active_room]);
+    }
+  }
+
   if (!isValid && !isVirtual)
     return (
       <React.Fragment>
@@ -247,31 +263,38 @@ function UserChat(props) {
                 </div>
               :<>
                 <div className="chat-list-wrapper">
-                <SimpleBar
+                {/* <SimpleBar
                   style={{ maxHeight: "100%" }}
                   ref={ref}
+                  onWheel={onWheel}
                   className="chat-conversation p-3 p-lg-4"
-                  id="messages">
+                  id="messages"> */}
+                <ScrollView
+                  ref={ref}
+                  width={'100%'}
+                  className="chat-conversation p-3 p-lg-4"
+                >
                   <ul className="list-unstyled mb-0">
                     {
-                      chatMessages.map((message, key) => {
+                      chatMessages.map((message, index) => {
                         const cuser = users[message.from];
                         const isMe = (message.from === me.user_id);
                         const time_str = engine.date2str(message.time, "MM/dd hh:mm");
                         const isToday = false;
+                        const key = message._id?message._id:("msg"+index);
                         return (
                         isToday ? 
-                          <li key={"dayTitle" + key}>
+                          <li key={"dayTitle" + index}>
                             <div className="chat-day-title">
                               <span className="title">Today</span>
                             </div>
                           </li> :
-                          <li key={key} className={isMe ? "right" : ""}>
+                          <li key={key} className={isMe ? "right" : ""} id={key}>
                             <div className="conversation-list">
                               {
                                 isMe?"":
                                 //logic for display user name and profile only once, if current and last messaged sent by same receiver
-                                chatMessages[key - 1] && chatMessages[key - 1].from === chatMessages[key].from ?
+                                chatMessages[index - 1] && chatMessages[index - 1].from === chatMessages[index].from ?
 
                                   <div className="chat-avatar">
                                     <div className="blank-div"></div>
@@ -294,7 +317,7 @@ function UserChat(props) {
 
                               <div className="user-chat-content">
                                 {
-                                  (isMe || (chatMessages[key - 1] && chatMessages[key - 1].from === chatMessages[key].from)) ? null : <div className="conversation-name">{cuser.user_name}</div>
+                                  (isMe || (chatMessages[index - 1] && chatMessages[index - 1].from === chatMessages[index].from)) ? null : <div className="conversation-name">{cuser.user_name}</div>
                                 }
                                 <div className="ctext-wrap">
                                   <div className="ctext-wrap-content">
@@ -360,7 +383,8 @@ function UserChat(props) {
                       })
                     }
                   </ul>
-                </SimpleBar>
+                </ScrollView>
+                {/* </SimpleBar> */}
 
                 <Modal backdrop="static" isOpen={modal} centered toggle={toggle}>
                   <ModalHeader toggle={toggle}>Forward to...</ModalHeader>
