@@ -222,9 +222,9 @@
 }
 
 .chat-conversation {
-    height: calc(100vh - 162px);
+    height: calc(100vh - 162px) !important;
     @media (max-width: 991.98px) {
-        height: calc(100vh - 138px);
+        height: calc(100vh - 138px) !important;
     }
 }
 
@@ -319,7 +319,7 @@
 }
 
 .typing-view {
-  width: 100%;
+  width: calc(100% - 10px);
   //height: 20px;
   background-color: $card-bg;
   margin-top: -30px;
@@ -363,4 +363,44 @@
 
 .gray-layer {
   background: rgba(0, 0, 0, 0.4);
+}
+
+div.chat-conversation::-webkit-scrollbar {
+  width: 8px;
+}
+  
+div.chat-conversation::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+div.chat-conversation::-webkit-scrollbar-thumb {
+  background-color: transparent; 
+  border-radius: 4px;
+}
+
+div.chat-conversation:hover::-webkit-scrollbar-thumb {
+  background-color: #4d5364;
+}
+
+
+div.emoji-mart-scroll::-webkit-scrollbar {
+  width: 12px;
+}
+  
+div.emoji-mart-scroll::-webkit-scrollbar-track {
+  background-color: #686f80;
+}
+
+div.emoji-mart-scroll::-webkit-scrollbar-thumb {
+  background-color: #4d5364;
+}
+
+body {
+  overflow: hidden;
+}
+
+.head-user-status {
+  font-size: 12px;
+  color: #CCCCCC;
+  margin-left: 10px;
 }

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
 import { Nav, NavItem, NavLink, UncontrolledTooltip, Dropdown, DropdownItem, DropdownToggle, DropdownMenu } from "reactstrap";
 import classnames from "classnames";
 import { connect } from "react-redux";
@@ -8,7 +7,7 @@ import { setActiveTab } from "../../redux/actions";
 
 //Import Images
 import logo from "../../assets/images/logo.svg"
-import avatar1 from "../../assets/images/users/avatar-1.jpg";
+import avatar1 from "../../assets/images/favicon.ico";
 
 //i18n
 import i18n from '../../i18n';
@@ -62,17 +61,17 @@ function LeftSidebarMenu(props) {
       <div className="side-menu flex-lg-column mr-lg-1">
         {/* LOGO */}
         <div className="navbar-brand-box">
-          <Link to="/" className="logo logo-dark">
+          <span className="logo logo-dark">
             <span className="logo-sm">
               <img src={logo} alt="logo" height="30" />
             </span>
-          </Link>
+          </span>
 
-          <Link to="/" className="logo logo-light">
+          <span className="logo logo-light">
             <span className="logo-sm">
               <img src={logo} alt="logo" height="30" />
             </span>
-          </Link>
+          </span>
         </div>
         {/* end navbar-brand-box  */}
 

@@ -98,7 +98,7 @@ const Chats = (props) => {
                   <i className="ri-search-line search-icon font-size-18"></i>
                 </Button>
               </InputGroupAddon>
-              <Input type="text" value={searchChat} onChange={(e) => handleChange(e)} className="form-control bg-light" placeholder="Search messages or users" />
+              <Input type="text" value={searchChat} onChange={(e) => handleChange(e)} className="form-control bg-light" placeholder="Search users..." />
             </InputGroup> 
           </div>
           {/* Search Box */}

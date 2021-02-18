@@ -8,7 +8,7 @@ import SimpleBar from "simplebar-react";
 import CustomCollapse from "../../../components/CustomCollapse";
 
 //Import Images
-import avatar1 from "../../../assets/images/users/avatar-1.jpg";
+import avatar1 from "../../../assets/images/favicon.ico";
 
 //i18n
 import { useTranslation } from 'react-i18next';

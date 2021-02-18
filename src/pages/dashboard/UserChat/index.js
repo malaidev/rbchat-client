@@ -22,7 +22,6 @@ import engine from "../../../utils/engine";
 
 import api from '../../../apis';
 import 'simplebar/dist/simplebar.min.css';
-import global from '../../../helpers/global';
 //i18n
 //import { useTranslation } from 'react-i18next';
 
@@ -72,33 +71,6 @@ function UserChat(props) {
     if (isValid)
       api.updateReadAt(props.active_room, new Date());
   }, [props.active_room, isValid])
-
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.recalculate();
-      scrolltoBottom();
-    }
-  }, [props.active_room, ref.current]);
-
-  useEffect(() => {
-    if (ref.current && ref.current.el)
-    {
-      if (global.scrollToItem) {
-
-        const item = document.getElementById(global.scrollToItem);
-        console.log(item.offsetTop);
-        ref.current.getScrollElement().scrollTop = item.offsetTop - 50;
-        global.scrollToItem = null;
-      }
-      else {
-        let offset = ref.current.getScrollElement().scrollHeight - ref.current.getScrollElement().scrollTop;
-        if ((offset <= ref.current.el.clientHeight + 200) ||
-        (chatMessages[chatMessages.length - 1].from === me.user_id)) {
-          scrolltoBottom();
-        }
-      }
-    }
-  }, [chatMessages.length]);
 
   const toggle = () => setModal(!modal);
 
@@ -177,12 +149,6 @@ function UserChat(props) {
     }
   }
 
-  const scrolltoBottom = () => {
-    if (ref.current.el) {
-      ref.current.getScrollElement().scrollTop = ref.current.getScrollElement().scrollHeight;
-    }
-  }
-
   // const deleteMessage = (id) => {
   //   let messages = chatMessages;
 
@@ -218,14 +184,12 @@ function UserChat(props) {
 
   const updateTyping = () => {
     if (isValid) {
-      new Promise((resolve, reject) => {
-        api.updateTyping(props.active_room);
-      })
+      api.updateTyping(props.active_room);
     }
   }
 
-  const onWheel = (event) => {
-    if (event.deltaY < 0 && ref.current.getScrollElement().scrollTop === 0) {
+  const onScroll = (info) => {
+    if (info.scrollTop === 0) {
       api.getMoreMessages(rooms[props.active_room]);
     }
   }
@@ -273,6 +237,7 @@ function UserChat(props) {
                   ref={ref}
                   width={'100%'}
                   className="chat-conversation p-3 p-lg-4"
+                  onScroll={onScroll}
                 >
                   <ul className="list-unstyled mb-0">
                     {
