@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import {updateAll, updateRooms, updateUsers, updateWriteAts} from '../../redux/actions';
 import api from '../../apis';
 import engine from '../../utils/engine'
+import global from '../../helpers/global'
 
 class Index extends Component {
   constructor(props) {
@@ -105,6 +106,26 @@ class Index extends Component {
       
       newUsers[user_id] = engine.formatUserInfo(newUsers[user_id], uinfo);
       this.props.updateUsers(newUsers);
+    });
+
+    api.onMoreMessages((room_id, messages) => {
+      let newRooms = {...this.props.chatdata.rooms};
+      let room = newRooms[room_id];
+      if (!room)
+        return;
+      var real_count = messages.length;
+      if (room.messages.length > 0) {
+        const last_id = room.messages[0]._id;
+        const last = messages.find(message => message._id == last_id);
+        if (last)
+          real_count = messages.indexOf(last);
+        global.scrollToItem = last_id;
+      }
+      if (real_count > 0) {
+        let newMessages = engine.formatMessages(messages.slice(0, real_count));
+        room.messages = [...newMessages, ...room.messages];
+      }
+      this.props.updateRooms(newRooms);
     });
   }
     

@@ -94,3 +94,23 @@ export const onUinfo = (callback) => {
       callback(user_id, uinfo);
   })
 }
+
+export const getMoreMessages = (room) => {
+  const count = room.msg_count - room.messages.length;
+  if (count === 0)
+    return new Promise((resolve, reject) => {resolve("No more message")});
+
+  return socketEmit("more:up", {
+    room_id: room._id,
+    position: room.messages.length,
+    count: count
+  });
+}
+
+export const onMoreMessages = (callback) => {
+  socket.on('more:down', (data) => {
+    const {room_id, messages} = data;
+    if (callback)
+      callback(room_id, messages);
+  })
+}
