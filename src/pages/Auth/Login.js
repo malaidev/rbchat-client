@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter, Redirect } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import config from '../../config';
 
 //i18n
 import { useTranslation } from 'react-i18next';
@@ -60,13 +61,13 @@ const Login = (props) => {
         <Row className="justify-content-center">
           <Col md={8} lg={6} xl={5} >
             <div className="text-center mb-4">
-              <Link to="/" className="auth-logo mb-5 d-block">
+              <span className="auth-logo mb-5 d-block">
                 <img src={logodark} alt="" height="30" className="logo logo-dark"/>
                 <img src={logolight} alt="" height="30" className="logo logo-light" />
-              </Link>
+              </span>
 
               <h4>{t('Sign in')}</h4>
-              <p className="text-muted mb-4">{t('Sign in to continue to Chatvia')}.</p>
+              <p className="text-muted mb-4">Sign in to continue to RBChat</p>
               
             </div>
 
@@ -80,7 +81,7 @@ const Login = (props) => {
                   <Form onSubmit={formik.handleSubmit}>
   
                     <FormGroup>
-                      <Label>{t('Email')}</Label>
+                      <Label>Username</Label>
                       <InputGroup className="mb-3 bg-soft-light input-group-lg rounded-lg">
                         <InputGroupAddon addonType="prepend">
                           <span className="input-group-text border-light text-muted">
@@ -92,7 +93,7 @@ const Login = (props) => {
                           id="email"
                           name="email"
                           className="form-control bg-soft-light border-light"
-                          placeholder="Enter email"
+                          placeholder="Enter username"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.email}
@@ -105,9 +106,9 @@ const Login = (props) => {
                     </FormGroup>
 
                     <FormGroup className="mb-4">
-                      <div className="float-right">
+                      {/* <div className="float-right">
                         <Link to="forget-password" className="text-muted font-size-13">{t('Forgot password')}?</Link>
-                      </div>
+                      </div> */}
                       <Label>{t('Password')}</Label>
                       <InputGroup className="mb-3 bg-soft-light input-group-lg rounded-lg">
                         <InputGroupAddon addonType="prepend">
@@ -148,8 +149,8 @@ const Login = (props) => {
             </Card>
 
             <div className="mt-5 text-center">
-              <p>{t("Don't have an account")} ? <Link to="register" className="font-weight-medium text-primary"> {t('Signup now')} </Link> </p>
-              <p>© {t('2020 Chatvia')}. {t('Crafted with')} <i className="mdi mdi-heart text-danger"></i> {t('by Themesbrand')}</p>
+              <p>{t("Don't have an account")} ? <a href={config.RB_SERVER} target="_blank" className="font-weight-medium text-primary"> {t('Signup now')} </a> </p>
+              <p>© 2021 RB Corporation</p>
             </div>
           </Col>
         </Row>

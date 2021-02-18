@@ -9,7 +9,6 @@ import { connect } from "react-redux";
 import {updateAll, updateRooms, updateUsers, updateWriteAts} from '../../redux/actions';
 import api from '../../apis';
 import engine from '../../utils/engine'
-import global from '../../helpers/global'
 
 class Index extends Component {
   constructor(props) {
@@ -19,7 +18,8 @@ class Index extends Component {
 
   componentDidMount() {
 
-    api.connectSocket(this.props.user.token);
+    if (this.props.user && this.props.user.token)
+      api.connectSocket(this.props.user.token);
 
     // Test socket connection
     setTimeout(() => {
@@ -119,7 +119,6 @@ class Index extends Component {
         const last = messages.find(message => message._id == last_id);
         if (last)
           real_count = messages.indexOf(last);
-        global.scrollToItem = last_id;
       }
       if (real_count > 0) {
         let newMessages = engine.formatMessages(messages.slice(0, real_count));

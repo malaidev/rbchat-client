@@ -52,7 +52,6 @@ function* login({ payload: { username, password, history } }) {
     }
     history.push('/');
   } catch (error) {
-    console.log(error);
     yield put(apiError(error));
   }
 }

@@ -146,7 +146,7 @@ function Contacts (props){
                 <i className="ri-search-line search-icon font-size-18"></i>
               </Button>
             </InputGroupAddon>
-            <Input type="text" value={searchWord} onChange={(e) => handleChange(e)} className="form-control bg-light " placeholder={t('Search users..')} />
+            <Input type="text" value={searchWord} onChange={(e) => handleChange(e)} className="form-control bg-light " placeholder="Search users..." />
           </InputGroup>
         </div>
         {/* End search-box */}

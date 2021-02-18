@@ -78,7 +78,7 @@ function Profile(props) {
         {/* Start user-profile-desc */}
         <div className="p-4 user-profile-desc">
           <div className="text-muted">
-            <p className="mb-4">You are signed in as a member of rbchat.</p>
+            <p className="mb-4">You are signed in as a member of RBChat.</p>
           </div>
 
 

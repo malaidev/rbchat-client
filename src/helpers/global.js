@@ -1,6 +1,6 @@
 
-var scrollToItem = null;
+var scrollToOffset = null;
 
 export default {
-  scrollToItem
+  scrollToOffset
 };

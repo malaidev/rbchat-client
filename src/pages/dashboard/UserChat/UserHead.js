@@ -60,9 +60,9 @@ function UserHead(props) {
                             
               <Media body className="overflow-hidden">
                 <h5 className="font-size-16 mb-0 text-truncate">
-                  <Link to="#" onClick={(e) => openUserSidebar(e)} className="text-reset user-profile-show">
+                  <span className="text-reset user-profile-show">
                     {props.active_room.room_name}
-                  </Link> 
+                  </span> 
                   {(() => {
                     let status = null;
                     const room = props.active_room;
@@ -73,6 +73,7 @@ function UserHead(props) {
                         return (
                           <>
                             <i className="ri-record-circle-fill font-size-10 text-success d-inline-block ml-1"></i>
+                            <span className="head-user-status">Active</span>
                           </>
                         )
                                             
@@ -80,6 +81,7 @@ function UserHead(props) {
                         return (
                           <>
                             <i className="ri-record-circle-fill font-size-10 text-warning d-inline-block ml-1"></i>
+                            <span className="head-user-status">Away</span>
                           </>
                         )
 
@@ -87,13 +89,14 @@ function UserHead(props) {
                         return (
                           <>
                             <i className="ri-record-circle-fill font-size-10 text-secondary d-inline-block ml-1"></i>
+                            <span className="head-user-status">Offline</span>
                           </>
                         )
 
                       default:
                         return;
                     }
-                  })()}                         
+                  })()}                
                 </h5>
               </Media>
             </Media>
