@@ -1,16 +1,12 @@
 import React from 'react';
 import { Card, Media, /*UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem*/ } from "reactstrap";
 
-//i18n
-import { useTranslation } from 'react-i18next';
 import engine from '../../../utils/engine';
 
 function FileList(props) {
 
   const {content: name, size, path} = props.file;
   
-  /* intilize t variable for multi language implementation */
-  const { t } = useTranslation();
   const fileSize = Number(size);
   var sizeStr = "";
   if (fileSize < 1024 )

@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, /*Dropdown, DropdownMenu, DropdownItem, DropdownToggle,*/ } from "reactstrap";
 
 //Import components
 import CustomCollapse from "../../../components/CustomCollapse";
-import AttachedFiles from "../../../components/AttachedFiles";
 
 //i18n
 import { useTranslation } from 'react-i18next';
@@ -12,20 +11,20 @@ function Profile(props) {
 
   const {me} = props;
   //const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [isOpen1, setIsOpen1] = useState(true);
-  const [isOpen2, setIsOpen2] = useState(false);
+  // const [isOpen1, setIsOpen1] = useState(true);
+  // const [isOpen2, setIsOpen2] = useState(false);
   /* intilize t variable for multi language implementation */
   const { t } = useTranslation();
 
-  const toggleCollapse1 = () => {
-    setIsOpen1(!isOpen1);
-    setIsOpen2(false);
-  };
+  // const toggleCollapse1 = () => {
+  //   setIsOpen1(!isOpen1);
+  //   setIsOpen2(false);
+  // };
 
-  const toggleCollapse2 = () => {
-    setIsOpen2(!isOpen2);
-    setIsOpen1(false);
-  };
+  // const toggleCollapse2 = () => {
+  //   setIsOpen2(!isOpen2);
+  //   setIsOpen1(false);
+  // };
 
   //const toggle = () => setDropdownOpen(!dropdownOpen);
 
@@ -88,7 +87,7 @@ function Profile(props) {
               <CustomCollapse
                 title = "About"
                 iconClass = "ri-user-2-line"
-                isOpen={isOpen1}
+                isOpen={true}
                 collapsable={false}
                 // toggleCollapse={toggleCollapse1}
               >

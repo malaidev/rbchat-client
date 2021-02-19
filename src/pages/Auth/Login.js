@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { Container, Row, Col, Card, CardBody, FormGroup, Alert, Form, Input, Button, FormFeedback, Label, InputGroup, InputGroupAddon } from 'reactstrap';
 import { connect } from 'react-redux';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import config from '../../config';
@@ -149,7 +149,7 @@ const Login = (props) => {
             </Card>
 
             <div className="mt-5 text-center">
-              <p>{t("Don't have an account")} ? <a href={config.RB_SERVER} target="_blank" className="font-weight-medium text-primary"> {t('Signup now')} </a> </p>
+              <p>{t("Don't have an account")} ? <a href={config.RB_SERVER} target="_blank" rel="noopener noreferrer" className="font-weight-medium text-primary"> {t('Signup now')} </a> </p>
               <p>© 2021 RB Corporation</p>
             </div>
           </Col>

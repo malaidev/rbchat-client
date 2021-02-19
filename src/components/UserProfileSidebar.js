@@ -16,7 +16,7 @@ import { closeUserSidebar } from "../redux/actions";
 import { useTranslation } from 'react-i18next';
 
 //image
-import avatar7 from "../assets/images/users/avatar-7.jpg";
+import avatar1 from "../assets/images/favicon.ico";
 
 function UserProfileSidebar(props) {
 
@@ -220,7 +220,7 @@ function UserProfileSidebar(props) {
                           <Media className="align-items-center">
                             <div className="chat-avatar">
                                                                 
-                              <img src={avatar7} className="rounded-circle chat-user-img avatar-xs mr-3" alt="chatvia" />
+                              <img src={avatar1} className="rounded-circle chat-user-img avatar-xs mr-3" alt="chatvia" />
                             </div>
                             <Media body>
                               <div className="text-left">
