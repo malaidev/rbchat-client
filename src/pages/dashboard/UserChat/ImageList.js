@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { DropdownMenu, DropdownItem, DropdownToggle, UncontrolledDropdown } from "reactstrap";
+// import { DropdownMenu, DropdownItem, DropdownToggle, UncontrolledDropdown } from "reactstrap";
 import { Link } from "react-router-dom";
-
-//i18n
-import { useTranslation } from 'react-i18next';
 
 //lightbox
 import Lightbox from 'react-image-lightbox';
@@ -12,13 +9,10 @@ import engine from '../../../utils/engine';
 
 function ImageList(props) {
   
-  const {content: name, size, path} = props.file;
+  const {content: name, path} = props.file;
 
   const [isOpen, setisOpen] = useState(false);
   const [currentImage, setcurrentImage] = useState(null);
-
-  /* intilize t variable for multi language implementation */
-  const { t } = useTranslation();
 
   const toggleLightbox = (currentImage) => {
     setisOpen(!isOpen);

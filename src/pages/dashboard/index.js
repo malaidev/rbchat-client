@@ -116,7 +116,7 @@ class Index extends Component {
       var real_count = messages.length;
       if (room.messages.length > 0) {
         const last_id = room.messages[0]._id;
-        const last = messages.find(message => message._id == last_id);
+        const last = messages.find(message => message._id === last_id);
         if (last)
           real_count = messages.indexOf(last);
       }

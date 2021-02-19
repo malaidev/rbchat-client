@@ -12,10 +12,10 @@ function UserHead(props) {
   //const toggle = () => setDropdownOpen(!dropdownOpen);
   //const toggle1 = () => setDropdownOpen1(!dropdownOpen1);
 
-  const openUserSidebar = (e) => {
-    e.preventDefault();
-    props.openUserSidebar();
-  }
+  // const openUserSidebar = (e) => {
+  //   e.preventDefault();
+  //   props.openUserSidebar();
+  // }
 
   function closeUserChat(e){
     e.preventDefault();
