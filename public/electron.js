@@ -1,4 +1,5 @@
-const { app, Menu, Tray, screen, BrowserWindow, nativeImage } = require('electron');
+const { app, Menu, Tray, screen, BrowserWindow, nativeImage, ipcMain } = require('electron');
+const { autoUpdater } = require('electron-updater');
 
 const path = require('path');
 const url = require('url');
@@ -55,6 +56,10 @@ function createWindow() {
   });
   tray.setToolTip('RBChat');
   tray.setContextMenu(trayMenu);
+
+  mainWindow.once('ready-to-show', () => {
+    autoUpdater.checkForUpdatesAndNotify();
+  });
 }
 
 const gotTheLock = app.requestSingleInstanceLock();
@@ -89,5 +94,22 @@ if (!gotTheLock) {
       createWindow();
     }
   });
+
+  ipcMain.on('app_version', (event) => {
+    event.sender.send('app_version', { version: app.getVersion() });
+  });
+
+  ipcMain.on('restart_app', () => {
+    autoUpdater.quitAndInstall();
+  });
+
+  autoUpdater.on('update-available', () => {
+    mainWindow.webContents.send('update_available');
+  });
+  
+  autoUpdater.on('update-downloaded', () => {
+    mainWindow.webContents.send('update_downloaded');
+  });
+
 
 }
