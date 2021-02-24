@@ -38,7 +38,7 @@ function UserHead(props) {
     <React.Fragment>
       <div className="p-3 p-lg-4 border-bottom">
         <Row className="align-items-center">
-          <Col sm={4} xs={8}>
+          <Col sm={8} xs={8}>
             <Media className="align-items-center">
               <div className="d-block d-lg-none mr-2">
                 <Link to="#" onClick={(e) => closeUserChat(e)} className="user-chat-remove text-muted font-size-16 p-2">
@@ -86,15 +86,13 @@ function UserHead(props) {
                         )
 
                       case "offline":
+                      default:
                         return (
                           <>
                             <i className="ri-record-circle-fill font-size-10 text-secondary d-inline-block ml-1"></i>
                             <span className="head-user-status">Offline</span>
                           </>
                         )
-
-                      default:
-                        return;
                     }
                   })()}                
                 </h5>
@@ -103,7 +101,7 @@ function UserHead(props) {
           </Col>
           {
             props.active_room.isVirtual?null:
-              <Col sm={8} xs={4} >
+              <Col sm={4} xs={4} >
                 <ul className="list-inline user-chat-nav text-right mb-0">
                                 
                   {/* <li className="list-inline-item">

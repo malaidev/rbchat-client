@@ -3,13 +3,16 @@ import {
 	SET_ACTIVE_TAB,
 	OPEN_USER_PROFILE_SIDEBAR,
 	CLOSE_USER_PROFILE_SIDEBAR,
-	SET_CONVERSATION_NAME_IN_OPEN_CHAT
+	SET_CONVERSATION_NAME_IN_OPEN_CHAT,
+  OPEN_GLOBAL_MODAL,
+  CLOSE_GLOBAL_MODAL
 } from "./constants";
 
 const INIT_STATE = {
 	activeTab : "chat",
 	userSidebar : false,
-	conversationName : "Doris Brown"
+	conversationName : "Doris Brown",
+  global_modal_body: ""
 };
 
 const Layout = (state = INIT_STATE, action) => {
@@ -37,6 +40,19 @@ const Layout = (state = INIT_STATE, action) => {
 				...state,
 				conversationName: action.payload
 			};
+      
+		case OPEN_GLOBAL_MODAL:
+			return {
+				...state,
+				global_modal_body: action.payload
+			};
+
+    case CLOSE_GLOBAL_MODAL:
+      return {
+        ...state,
+        global_modal_body: ""
+      };
+
 		default:
 			return state;
 	}

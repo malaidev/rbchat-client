@@ -18,8 +18,6 @@ import {
   apiError
 } from './actions';
 
-import api from '../../apis';
-
 //Initilize firebase
 const fireBaseBackend = getFirebaseBackend();
 
@@ -43,7 +41,7 @@ function* login({ payload: { username, password, history } }) {
       if (response.token) {
         localStorage.setItem("authUser", JSON.stringify(response));
         yield put(loginUserSuccess(response));
-        api.connectSocket(response.token);
+        //api.connectSocket(response.token);
       }
       else {
         yield put(apiError(response.message));

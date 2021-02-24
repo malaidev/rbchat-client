@@ -93,7 +93,7 @@ function Contacts (props){
     if(userChat) {
       userChat[0].classList.add("user-chat-show");
     }
-  }    
+  }
 
   const handleChange = (e) => {
     setSearchWord(e.target.value);

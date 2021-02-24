@@ -2,7 +2,9 @@ import {
 	SET_ACTIVE_TAB,
 	OPEN_USER_PROFILE_SIDEBAR,
 	CLOSE_USER_PROFILE_SIDEBAR,
-	SET_CONVERSATION_NAME_IN_OPEN_CHAT
+	SET_CONVERSATION_NAME_IN_OPEN_CHAT,
+  OPEN_GLOBAL_MODAL,
+  CLOSE_GLOBAL_MODAL
 } from "./constants";
 
 export const setActiveTab = (tabId) => ({
@@ -21,4 +23,13 @@ export const closeUserSidebar = () => ({
 export const setconversationNameInOpenChat = (conversationName) => ({
 	type: SET_CONVERSATION_NAME_IN_OPEN_CHAT,
 	payload: conversationName
+});
+
+export const openGlobalModal = (body) => ({
+	type: OPEN_GLOBAL_MODAL,
+  payload: body
+});
+
+export const closeGlobalModal = () => ({
+	type: CLOSE_GLOBAL_MODAL
 });

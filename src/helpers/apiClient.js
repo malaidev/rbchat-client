@@ -10,24 +10,26 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // intercepting to capture errors
 axios.interceptors.response.use(function (response) {
-    return response.data ? response.data : response;
+  if (response.status === 250)
+    return Promise.reject(response.data.message);
+  return response.data ? response.data : response;
 }, function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    let message = error.message || error;
-    if (!error.response)
-      return Promise.reject(message);
-      
-    switch (error.response.status) {
-        case 500: message = 'Internal Server Error'; break;
-        case 401: 
-          message = 'Invalid credentials';
-          removeLoggedInUser();
-          window.location="/";
-          break;
-        case 404: message = "Sorry! the data you are looking for could not be found"; break;
-        default: message = error.message || error;
-    }
+  // Any status codes that falls outside the range of 2xx cause this function to trigger
+  let message = error.message || error;
+  if (!error.response)
     return Promise.reject(message);
+    
+  switch (error.response.status) {
+      case 500: message = 'Internal Server Error'; break;
+      case 401: 
+        message = 'Invalid credentials';
+        removeLoggedInUser();
+        window.location="/";
+        break;
+      case 404: message = "Sorry! the data you are looking for could not be found"; break;
+      default: message = error.message || error;
+  }
+  return Promise.reject(message);
 });
 
 /**

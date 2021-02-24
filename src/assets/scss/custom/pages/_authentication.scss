@@ -16,3 +16,15 @@
     }
 }
 
+.login-page {
+  width: 100%;
+}
+
+.login-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 700px;
+}

@@ -61,12 +61,6 @@ function LeftSidebarMenu(props) {
       <div className="side-menu flex-lg-column mr-lg-1">
         {/* LOGO */}
         <div className="navbar-brand-box">
-          <span className="logo logo-dark">
-            <span className="logo-sm">
-              <img src={logo} alt="logo" height="30" />
-            </span>
-          </span>
-
           <span className="logo logo-light">
             <span className="logo-sm">
               <img src={logo} alt="logo" height="30" />

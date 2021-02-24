@@ -19,6 +19,15 @@ const Chats = (props) => {
     setRooms(props.chatdata.rooms);
   }, [props.chatdata.rooms]);
 
+  useEffect(() => {
+    if (props.active_room && !props.active_room.toString().includes("virtual")) {
+      var userChat = document.getElementsByClassName("user-chat");
+      if(userChat) {
+        userChat[0].classList.add("user-chat-show");
+      }
+    }
+  }, [props.active_room])
+
   const handleChange = (e) => {
     setSearchChat(e.target.value);
     var search = e.target.value.toLowerCase().trim();

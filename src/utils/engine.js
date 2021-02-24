@@ -31,6 +31,8 @@ function formatRoomData(room, users, me) {
   room.members = members_new;
   room.unRead = calculateUnreadMessages(room, me.user_id);
   room.typings = [];
+  if (room.msg_count === null || room.msg_count === undefined)
+    room.msg_count = 0;
   return room;
 }
 
@@ -143,11 +145,7 @@ function getDownloadLink(path, name) {
   return link;
 }
 
-export default {
-  // connectSocket,
-  // disconnectSocket,
-  // testConnection,
-  
+export default {  
   formatRoomData,
   formatChatData,
   formatUserInfo,

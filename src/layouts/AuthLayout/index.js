@@ -17,10 +17,10 @@ class Index extends Component {
     };
 
     componentDidMount(){
-        let currentage = this.capitalizeFirstLetter(this.props.location.pathname);
+        //let currentage = this.capitalizeFirstLetter(this.props.location.pathname);
 
         //set document title according to page path name
-        document.title = currentage + " | Chatvia - Responsive Bootstrap 4 Admin Dashboard";
+        //document.title = currentage + " | Chatvia - Responsive Bootstrap 4 Admin Dashboard";
     }
     
     render() {
