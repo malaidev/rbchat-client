@@ -11,11 +11,10 @@
 # production
 /build
 /dist
-electron-builder.yml
 
 # misc
 .DS_Store
-# .env
+.env
 .env.local
 .env.development.local
 .env.test.local
