@@ -16,10 +16,6 @@
       "icon": "build/favicon.ico"
     }
   },
-  "repository": {
-    "type" : "git",
-    "url" : "https://github.com/IntelMin/rbchat-client.git"
-  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -70,8 +66,7 @@
     "electron-dev": "concurrently \"set BROWSER=none&&yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron": "electron .",
     "electron-pack": "electron-builder -c.extraMetadata.main=build/electron.js",
-    "preelectron-pack": "yarn build",
-    "deploy": "electron-builder build --win --publish always"
+    "preelectron-pack": "yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"
