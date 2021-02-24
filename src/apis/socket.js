@@ -2,18 +2,47 @@
 
 import config from "./../config";
 import io from 'socket.io-client';
+import { registerUser } from "../redux/actions";
 
 var socket = null;
+var disconnected = true;
 
 export const connectSocket = (token) => {
+  
+  if (socket)
+    socket.disconnect();
+
   socket = io(config.API_URL, {
     query: 'token=' + token,
-    forceNew: true
+    forceNew: true,
   });
 }
 
 export const disconnectSocket = () => {
   socket.disconnect();
+}
+
+export const onSocketDisconnect = (callback) => {
+  socket.on('disconnect', function() {
+    console.log('Disconnected from server...');
+
+    if (callback && !disconnected) {
+      disconnected = true;
+      setTimeout(() => {
+        if (disconnected)
+          callback();
+        disconnected = false;
+      }, 5000);
+    }
+  });
+}
+
+export const onSocketConnect = (callback) => {
+  socket.on('connect', function() {
+    console.log('Connected to server...');
+    disconnected = false;
+    if (callback) callback();
+  });
 }
 
 function socketEmit(event, data) {
@@ -96,6 +125,9 @@ export const onUinfo = (callback) => {
 }
 
 export const getMoreMessages = (room) => {
+  if (!room.msg_count || !room.messages || !room.messages.length)
+    return;
+    
   const count = room.msg_count - room.messages.length;
   if (count === 0)
     return new Promise((resolve, reject) => {resolve("No more message")});

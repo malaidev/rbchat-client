@@ -14,8 +14,7 @@ import { forgetPassword, apiError } from '../../redux/actions';
 import { useTranslation } from 'react-i18next';
 
 //Import Images
-import logodark from "../../assets/images/logo-dark.png";
-import logolight from "../../assets/images/logo-light.png";
+import logo_big from "../../assets/images/logo-big.png";
 
 /**
  * Forget Password component
@@ -58,8 +57,7 @@ const ForgetPassword = (props) => {
                     <Col md={8} lg={6} xl={5}>
                         <div className="text-center mb-4">
                             <Link to="/" className="auth-logo mb-5 d-block">
-                                <img src={logodark} alt="" height="30" className="logo logo-dark"/>
-                                <img src={logolight} alt="" height="30" className="logo logo-light" />
+                                <img src={logo_big} alt="" height="30" className="logo logo-light" />
                             </Link>
 
                             <h4>{t('Reset Password')}</h4>

@@ -13,10 +13,9 @@ class NonAuth extends Component {
     };
 
     componentDidMount(){
-        let currentage = this.capitalizeFirstLetter(this.props.location.pathname);
+        //let currentage = this.capitalizeFirstLetter(this.props.location.pathname);
 
-        document.title =
-          currentage + " | Chatvia - Responsive Bootstrap 4 Admin Dashboard";
+        //document.title = currentage + " | Chatvia - Responsive Bootstrap 4 Admin Dashboard";
     }
     render() {
         return <React.Fragment>

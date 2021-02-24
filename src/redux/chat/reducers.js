@@ -11,7 +11,7 @@ const INIT_STATE = {
   me: {},
   
   // off data
-	active_room : -1,
+	active_room : "",
   write_ats: {}
 
 };

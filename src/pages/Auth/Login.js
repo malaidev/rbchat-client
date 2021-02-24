@@ -13,8 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { loginUser, apiError } from '../../redux/actions';
 
 //Import Images
-import logodark from "../../assets/images/logo-dark.png";
-import logolight from "../../assets/images/logo-light.png";
+import logo_big from "../../assets/images/logo-big.png";
 
 /**
  * Login component
@@ -51,19 +50,24 @@ const Login = (props) => {
 
   if (localStorage.getItem("authUser")) {
     return <Redirect to="/" />;
-  } 
+  }
+
+  const onUsernameKeyPress = (e) => {
+    if (e.charCode === 13) {
+      document.getElementById("password").focus();
+    }
+  }
 
   return (
     <React.Fragment>
-
-    <div className="account-pages my-5 pt-sm-5">
+    <div className="login-wrapper">
+    <div className="account-pages login-page">
       <Container>
         <Row className="justify-content-center">
           <Col md={8} lg={6} xl={5} >
             <div className="text-center mb-4">
               <span className="auth-logo mb-5 d-block">
-                <img src={logodark} alt="" height="30" className="logo logo-dark"/>
-                <img src={logolight} alt="" height="30" className="logo logo-light" />
+                <img src={logo_big} alt="" height="30" className="logo logo-light" />
               </span>
 
               <h4>{t('Sign in')}</h4>
@@ -78,7 +82,7 @@ const Login = (props) => {
                     }
                 <div className="p-3">
                     
-                  <Form onSubmit={formik.handleSubmit}>
+                  <Form id="loginForm" onSubmit={formik.handleSubmit}>
   
                     <FormGroup>
                       <Label>Username</Label>
@@ -97,6 +101,7 @@ const Login = (props) => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.email}
+                          onKeyPress={onUsernameKeyPress}
                           invalid={formik.touched.email && formik.errors.email ? true : false}
                         />
                         {formik.touched.email && formik.errors.email ? (
@@ -149,12 +154,13 @@ const Login = (props) => {
             </Card>
 
             <div className="mt-5 text-center">
-              <p>{t("Don't have an account")} ? <a href={config.RB_SERVER} target="_blank" rel="noopener noreferrer" className="font-weight-medium text-primary"> {t('Signup now')} </a> </p>
+              <p>{t("Don't have an account")} ? <a href={config.RB_SERVER} target="" rel="noopener noreferrer" className="font-weight-medium text-primary"> {t('Signup now')} </a> </p>
               <p>© 2021 RB Corporation</p>
             </div>
           </Col>
         </Row>
       </Container>
+    </div>
     </div>
     </React.Fragment>
   )
