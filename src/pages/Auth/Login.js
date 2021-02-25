@@ -5,6 +5,7 @@ import { withRouter, Redirect } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import config from '../../config';
+import isElectron from 'is-electron';
 
 //i18n
 import { useTranslation } from 'react-i18next';
@@ -14,6 +15,7 @@ import { loginUser, apiError } from '../../redux/actions';
 
 //Import Images
 import logo_big from "../../assets/images/logo-big.png";
+import engine from '../../utils/engine';
 
 /**
  * Login component
@@ -55,6 +57,14 @@ const Login = (props) => {
   const onUsernameKeyPress = (e) => {
     if (e.charCode === 13) {
       document.getElementById("password").focus();
+    }
+  }
+  
+  const onSignUp = () => {
+    if (isElectron())
+      engine.runCommand("runlink", config.RB_SERVER);
+    else {
+      window.open(config.RB_SERVER);
     }
   }
 
@@ -154,7 +164,7 @@ const Login = (props) => {
             </Card>
 
             <div className="mt-5 text-center">
-              <p>{t("Don't have an account")} ? <a href={config.RB_SERVER} target="" rel="noopener noreferrer" className="font-weight-medium text-primary"> {t('Signup now')} </a> </p>
+              <p>{t("Don't have an account")} ? <span onClick={onSignUp} rel="noopener noreferrer" className="font-weight-medium text-primary" style={{cursor: 'pointer'}}>Signup now</span> </p>
               <p>© 2021 RB Corporation</p>
             </div>
           </Col>

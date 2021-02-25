@@ -38,7 +38,7 @@ function UserHead(props) {
     <React.Fragment>
       <div className="p-3 p-lg-4 border-bottom">
         <Row className="align-items-center">
-          <Col sm={8} xs={8}>
+          <Col sm={12} xs={12}>
             <Media className="align-items-center">
               <div className="d-block d-lg-none mr-2">
                 <Link to="#" onClick={(e) => closeUserChat(e)} className="user-chat-remove text-muted font-size-16 p-2">
@@ -100,45 +100,45 @@ function UserHead(props) {
             </Media>
           </Col>
           {
-            props.active_room.isVirtual?null:
-              <Col sm={4} xs={4} >
-                <ul className="list-inline user-chat-nav text-right mb-0">
+            // props.active_room.isVirtual?null:
+            //   <Col sm={4} xs={4} >
+            //     <ul className="list-inline user-chat-nav text-right mb-0">
                                 
-                  {/* <li className="list-inline-item">
-                    <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                      <DropdownToggle color="none" className="btn nav-btn " type="button" >
-                        <i className="ri-search-line"></i>
-                      </DropdownToggle>
-                      <DropdownMenu right className="p-0  dropdown-menu-md">
-                        <div className="search-box p-2">
-                          <Input type="text" className="form-control bg-light border-0" placeholder="Search.." />
-                        </div>
-                      </DropdownMenu>
-                    </Dropdown>
-                  </li> */}
+            //       <li className="list-inline-item">
+            //         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+            //           <DropdownToggle color="none" className="btn nav-btn " type="button" >
+            //             <i className="ri-search-line"></i>
+            //           </DropdownToggle>
+            //           <DropdownMenu right className="p-0  dropdown-menu-md">
+            //             <div className="search-box p-2">
+            //               <Input type="text" className="form-control bg-light border-0" placeholder="Search.." />
+            //             </div>
+            //           </DropdownMenu>
+            //         </Dropdown>
+            //       </li>
 
-                  {/* <li className="list-inline-item d-none d-lg-inline-block">
-                    <Button type="button" color="none" onClick={(e) => openUserSidebar(e)} className="nav-btn user-profile-show">
-                      <i className="ri-user-2-line"></i>
-                    </Button>
-                  </li> */}
+            //       <li className="list-inline-item d-none d-lg-inline-block">
+            //         <Button type="button" color="none" onClick={(e) => openUserSidebar(e)} className="nav-btn user-profile-show">
+            //           <i className="ri-user-2-line"></i>
+            //         </Button>
+            //       </li>
 
-                  {/* <li className="list-inline-item">
-                    <Dropdown isOpen={dropdownOpen1} toggle={toggle1} >
-                      <DropdownToggle className="btn nav-btn " color="none" type="button" >
-                        <i className="ri-more-fill"></i>
-                      </DropdownToggle>
-                      <DropdownMenu right>
-                        <DropdownItem className="d-block d-lg-none user-profile-show" onClick={(e) => openUserSidebar(e)}>View profile <i className="ri-user-2-line float-right text-muted"></i></DropdownItem>
-                        <DropdownItem>Archive <i className="ri-archive-line float-right text-muted"></i></DropdownItem>
-                        <DropdownItem>Muted <i className="ri-volume-mute-line float-right text-muted"></i></DropdownItem>
-                        <DropdownItem onClick={(e)=>deleteMessage(e)}>Delete <i className="ri-delete-bin-line float-right text-muted"></i></DropdownItem>
-                      </DropdownMenu>
-                    </Dropdown>
-                  </li> */}
+            //       <li className="list-inline-item">
+            //         <Dropdown isOpen={dropdownOpen1} toggle={toggle1} >
+            //           <DropdownToggle className="btn nav-btn " color="none" type="button" >
+            //             <i className="ri-more-fill"></i>
+            //           </DropdownToggle>
+            //           <DropdownMenu right>
+            //             <DropdownItem className="d-block d-lg-none user-profile-show" onClick={(e) => openUserSidebar(e)}>View profile <i className="ri-user-2-line float-right text-muted"></i></DropdownItem>
+            //             <DropdownItem>Archive <i className="ri-archive-line float-right text-muted"></i></DropdownItem>
+            //             <DropdownItem>Muted <i className="ri-volume-mute-line float-right text-muted"></i></DropdownItem>
+            //             <DropdownItem onClick={(e)=>deleteMessage(e)}>Delete <i className="ri-delete-bin-line float-right text-muted"></i></DropdownItem>
+            //           </DropdownMenu>
+            //         </Dropdown>
+            //       </li>
                                 
-                </ul>
-              </Col>
+            //     </ul>
+            //   </Col>
           }
           
         </Row>

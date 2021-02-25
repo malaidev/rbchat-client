@@ -2,7 +2,6 @@
 
 import config from "./../config";
 import io from 'socket.io-client';
-import { registerUser } from "../redux/actions";
 
 var socket = null;
 var disconnected = true;
@@ -19,7 +18,8 @@ export const connectSocket = (token) => {
 }
 
 export const disconnectSocket = () => {
-  socket.disconnect();
+  if (socket && socket.connected)
+    socket.disconnect();
 }
 
 export const onSocketDisconnect = (callback) => {
@@ -92,8 +92,8 @@ export const onNewRoom = (callback) => {
   })
 }
 
-export const updateReadAt = (room_id, time) => {
-  return socketEmit("readat:up", {room_id, time});
+export const updateReadAt = (room_id) => {
+  return socketEmit("readat:up", {room_id});
 }
 
 export const onReadAt = (callback) => {
@@ -124,18 +124,15 @@ export const onUinfo = (callback) => {
   })
 }
 
-export const getMoreMessages = (room) => {
-  if (!room.msg_count || !room.messages || !room.messages.length)
-    return;
-    
-  const count = room.msg_count - room.messages.length;
-  if (count === 0)
+export const getMoreMessages = (room) => {    
+  
+  if (!room.msg_count)
     return new Promise((resolve, reject) => {resolve("No more message")});
 
   return socketEmit("more:up", {
     room_id: room._id,
-    position: room.messages.length,
-    count: count
+    position: room.msg_count,
+    count: room.msg_count
   });
 }
 

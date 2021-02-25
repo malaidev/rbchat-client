@@ -38,3 +38,7 @@ export const updateWriteAts = (write_ats) => ({
   type: types.UPDATE_WRITE_ATS,
   payload : write_ats
 });
+
+export const initChat = () => ({
+  type: types.INIT_CHAT
+});

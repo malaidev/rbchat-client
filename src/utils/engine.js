@@ -1,5 +1,6 @@
 import config from '../config';
 import {getLoggedInUser} from '../helpers/authUtils';
+import isElectron from 'is-electron';
 
 function formatMessages(messages) {
   for (var i = 0; i < messages.length; i++)
@@ -74,7 +75,7 @@ function formatChatData(chatdata) {
   for (i = 0; i < rooms.length; i++) {
     const room = rooms[i];
     rooms_new[room._id] = formatRoomData(room, users_new, me);
-    write_ats[room._id] = new Date();
+    write_ats[room._id] = getLastMessageTime(room);
   }
   for (var user_id in uinfos) {
     const uinfo = uinfos[user_id];
@@ -85,20 +86,26 @@ function formatChatData(chatdata) {
   return { users: users_new, rooms: rooms_new, me, write_ats };
 }
 
-function date2str(x, y) {
+function getLastMessageTime(room) {
+  if (!room || !room.messages || !room.messages.length)
+    return new Date(0);
+  return room.messages[room.messages.length - 1].time;
+}
+
+function date2str(date, formatStr) {
   var z = {
-      M: x.getMonth() + 1,
-      d: x.getDate(),
-      h: x.getHours(),
-      m: x.getMinutes(),
-      s: x.getSeconds()
+      M: date.getMonth() + 1,
+      d: date.getDate(),
+      h: date.getHours(),
+      m: date.getMinutes(),
+      s: date.getSeconds()
   };
-  y = y.replace(/(M+|d+|h+|m+|s+)/g, function(v) {
+  formatStr = formatStr.replace(/(M+|d+|h+|m+|s+)/g, function(v) {
       return ((v.length > 1 ? "0" : "") + z[v.slice(-1)]).slice(-2)
   });
 
-  return y.replace(/(y+)/g, function(v) {
-      return x.getFullYear().toString().slice(-v.length)
+  return formatStr.replace(/(y+)/g, function(v) {
+      return date.getFullYear().toString().slice(-v.length)
   });
 }
 
@@ -114,6 +121,16 @@ function calculateUnreadMessages(room, user_id) {
       if (count > 9)
         return count;
     }
+  }
+  return count;
+}
+
+function calculateUnreadMessagesTotal(rooms) {
+  let count = 0;
+  for (var i in rooms) {
+    const room = rooms[i];
+    if (room.unRead)
+      count += room.unRead;
   }
   return count;
 }
@@ -145,6 +162,16 @@ function getDownloadLink(path, name) {
   return link;
 }
 
+function runCommand(cmd, data = null) {
+  if (isElectron())
+    window.ipcRenderer.send(cmd, data);
+}
+
+function runCommandSync(cmd, data = null) {
+  if (isElectron())
+    window.ipcRenderer.sendSync(cmd, data);
+}
+
 export default {  
   formatRoomData,
   formatChatData,
@@ -152,7 +179,10 @@ export default {
   formatMessages,
   date2str,
   calculateUnreadMessages,
+  calculateUnreadMessagesTotal,
   addTyping,
   removeTyping,
-  getDownloadLink
+  getDownloadLink,
+  runCommand,
+  runCommandSync
 };
