@@ -5,7 +5,8 @@ import {
 	CLOSE_USER_PROFILE_SIDEBAR,
 	SET_CONVERSATION_NAME_IN_OPEN_CHAT,
   OPEN_GLOBAL_MODAL,
-  CLOSE_GLOBAL_MODAL
+  CLOSE_GLOBAL_MODAL,
+  INIT_LAYOUT
 } from "./constants";
 
 const INIT_STATE = {
@@ -52,6 +53,9 @@ const Layout = (state = INIT_STATE, action) => {
         ...state,
         global_modal_body: ""
       };
+
+    case INIT_LAYOUT:
+      return INIT_STATE;
 
 		default:
 			return state;

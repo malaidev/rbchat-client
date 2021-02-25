@@ -7,3 +7,4 @@ export const UPDATE_ALL = "UPDATE_ALL";
 export const UPDATE_ROOMS = "UPDATE_ROOMS";
 export const UPDATE_USERS = "UPDATE_USERS";
 export const UPDATE_WRITE_ATS = "UPDATE_WRITE_ATS";
+export const INIT_CHAT = "INIT_CHAT";

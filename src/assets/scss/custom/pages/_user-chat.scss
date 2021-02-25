@@ -404,3 +404,10 @@ body {
   color: #CCCCCC;
   margin-left: 10px;
 }
+
+@media (max-width: 500px) {
+  .chat-input-links li:not(:last-child) .btn{
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}

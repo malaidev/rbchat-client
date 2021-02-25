@@ -76,10 +76,9 @@ function Profile(props) {
 
         {/* Start user-profile-desc */}
         <div className="p-4 user-profile-desc">
-          <div className="text-muted">
+          {/* <div className="text-muted">
             <p className="mb-4">You are signed in as a member of RBChat.</p>
-          </div>
-
+          </div> */}
 
           <div id="profile-user-accordion-1" className="custom-accordion">
             <Card className="shadow-none border mb-2">

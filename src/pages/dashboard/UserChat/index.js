@@ -69,7 +69,7 @@ function UserChat(props) {
 
   useEffect(() => {
     if (isValid)
-      api.updateReadAt(props.active_room, new Date());
+      api.updateReadAt(props.active_room);
   }, [props.active_room, isValid])
 
   const toggle = () => setModal(!modal);
@@ -82,9 +82,7 @@ function UserChat(props) {
       case "textMessage":
         messageObj = {
           content: data,
-          type: 1,
-          time: new Date(),
-          from: me.user_id
+          type: 1
         }
         break;
 
@@ -93,9 +91,7 @@ function UserChat(props) {
           id: "tmp" + Date.now(),
           content: data.name,
           size: data.size,
-          type: 2,
-          time: new Date(),
-          from: me.user_id,
+          type: 2
         }
         break;
 
@@ -104,15 +100,15 @@ function UserChat(props) {
           id: "tmp" + Date.now(),
           content: data.name,
           size: data.size,
-          type: 3,
-          time: new Date(),
-          from: me.user_id
+          type: 3
         }
         break;
 
       default:
         break;
     }
+    messageObj.from = me.user_id;
+    messageObj.time = new Date();
 
     const newRooms = {...rooms};
     newRooms[props.active_room].messages.push({...messageObj, status: "Uploading..."});
@@ -120,7 +116,7 @@ function UserChat(props) {
 
     if (type === "textMessage") {
       api.addNewMessage(props.active_room, messageObj);
-      api.updateReadAt(props.active_room, messageObj.time);
+      api.updateReadAt(props.active_room);
     }
     else if (type === "fileMessage") {
       api.uploadFile(data, messageObj)
@@ -134,7 +130,7 @@ function UserChat(props) {
             };
             messageObj.status = "";
             api.addNewMessage(props.active_room, newObj);
-            api.updateReadAt(props.active_room, newObj.time);
+            api.updateReadAt(props.active_room);
           }
           else {
             messageObj.status = res.message;
@@ -167,7 +163,6 @@ function UserChat(props) {
       room_description: "",
       members: [{
         user_id: me.user_id,
-        read_at: new Date()
       }, {user_id: vuser_id}],
       messages: [],
     }
@@ -179,7 +174,7 @@ function UserChat(props) {
 
   const updateReadAt = () => {
     if (isValid)
-      api.updateReadAt(props.active_room, new Date());
+      api.updateReadAt(props.active_room);
   }
 
   const updateTyping = () => {
@@ -305,8 +300,8 @@ function UserChat(props) {
 
                                     <div className="chat-time mb-0">
                                       {
-                                        message.type === 2 && message.status &&
-                                          <span 
+                                        (message.type === 2 || message.type === 3) && message.status &&
+                                          <span
                                             className="align-middle" 
                                             style={{
                                               marginRight: 20, 

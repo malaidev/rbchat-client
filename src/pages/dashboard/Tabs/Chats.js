@@ -116,6 +116,8 @@ const Chats = (props) => {
         {/* Start chat-message-list  */}
         <div className="px-2">
           <h5 className="mb-3 px-3 font-size-16">Recent</h5>
+          {
+          Object.entries(rooms).length > 0?
           <SimpleBar style={{ maxHeight: "100%" }} className="chat-message-list">
             <ul className="list-unstyled chat-list chat-user-list" id="chat-list">
               {
@@ -197,6 +199,9 @@ const Chats = (props) => {
               }
             </ul>
             </SimpleBar>
+          :
+          <span className="px-3">No recent chat</span>
+          }
                               
         </div>
         {/* End chat-message-list */}

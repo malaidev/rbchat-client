@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, HashRouter } from 'react-router-dom';
 
 //import routes
 import { authProtectedRoutes, publicRoutes } from './routes';
@@ -29,7 +29,7 @@ const Routes = (props) => {
    
     return (
         // rendering the router with layout
-        <BrowserRouter>
+        <HashRouter>
             <React.Fragment>
             <Suspense fallback = {<div></div>} >
                 <Switch>
@@ -45,9 +45,9 @@ const Routes = (props) => {
                             key={idx} isAuthProtected={true} />
                     )}
                 </Switch>
-                </Suspense>
+            </Suspense>
             </React.Fragment>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 

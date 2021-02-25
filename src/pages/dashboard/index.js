@@ -11,6 +11,7 @@ import api from '../../apis';
 import engine from '../../utils/engine'
 import { showNotification } from '../../helpers/notification';
 import config from '../../config';
+import isElectron from 'is-electron';
 
 Modal.setAppElement('body');
 
@@ -30,10 +31,27 @@ class Index extends Component {
       });
     }
 
-    const goToRoom  = (room_id) => {
+    const goToRoom = (room_id) => {
       this.props.setActiveTab("chat");
       this.props.setActiveRoom("");
       this.props.setActiveRoom(room_id);
+      window.focus();
+      engine.runCommand("show");
+    }
+
+    const updateBadge = (plus = 0) => {
+      if (isElectron()) {
+        let highlighted = false;
+        if (plus > 0) 
+          highlighted = true;
+        else {
+          const count = plus + engine.calculateUnreadMessagesTotal(this.props.chatdata.rooms);
+          if (count > 0)
+            highlighted = true;
+        }
+
+        engine.runCommand("highlight", highlighted);
+      }
     }
 
     // Test socket connection
@@ -50,6 +68,7 @@ class Index extends Component {
         const chatdata = engine.formatChatData(res);
         console.log("Formatted Data", chatdata);
         this.props.updateAll(chatdata);
+        updateBadge();
       })
       .catch(err => {
         console.log(err);
@@ -73,6 +92,7 @@ class Index extends Component {
           title = room.room_name;
 
         showNotification(title, message.content, () => {goToRoom(room_id)});
+        updateBadge();
       }
       else {
         let newWriteAts = {...this.props.write_ats};
@@ -104,9 +124,10 @@ class Index extends Component {
       }
       newData.rooms[room._id] = engine.formatRoomData(room, this.props.chatdata.users, this.props.chatdata.me);
       newData.write_ats = {...this.props.write_ats};
-      newData.write_ats[room._id] = new Date();
+      newData.write_ats[room._id] = new Date(0);
       this.props.updateAll(newData);
       showNotification("New Chat Room", body, () => {goToRoom(room._id)});
+      updateBadge(1);
     });
 
     api.onReadAt((room_id, user_id, time) => {
@@ -117,6 +138,7 @@ class Index extends Component {
       if (user_id === this.props.chatdata.me.user_id)
         newRooms[room_id].unRead = engine.calculateUnreadMessages(newRooms[room_id], user_id);
       this.props.updateRooms(newRooms);
+      updateBadge();
     });
 
     api.onTyping((user_id, room_id, is_typing) => {
@@ -158,6 +180,7 @@ class Index extends Component {
       if (real_count > 0) {
         let newMessages = engine.formatMessages(messages.slice(0, real_count));
         room.messages = [...newMessages, ...room.messages];
+        room.msg_count = room.msg_count - real_count;
       }
       this.props.updateRooms(newRooms);
     });

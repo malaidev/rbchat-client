@@ -4,7 +4,8 @@ import {
 	CLOSE_USER_PROFILE_SIDEBAR,
 	SET_CONVERSATION_NAME_IN_OPEN_CHAT,
   OPEN_GLOBAL_MODAL,
-  CLOSE_GLOBAL_MODAL
+  CLOSE_GLOBAL_MODAL,
+  INIT_LAYOUT
 } from "./constants";
 
 export const setActiveTab = (tabId) => ({
@@ -32,4 +33,8 @@ export const openGlobalModal = (body) => ({
 
 export const closeGlobalModal = () => ({
 	type: CLOSE_GLOBAL_MODAL
+});
+
+export const initLayout = () => ({
+	type: INIT_LAYOUT
 });

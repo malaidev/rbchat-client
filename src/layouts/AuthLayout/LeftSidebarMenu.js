@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Nav, NavItem, NavLink, UncontrolledTooltip, Dropdown, DropdownItem, DropdownToggle, DropdownMenu } from "reactstrap";
 import classnames from "classnames";
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 
 import { setActiveTab } from "../../redux/actions";
 
@@ -72,7 +73,7 @@ function LeftSidebarMenu(props) {
         {/* Start side-menu nav */}
         <div className="flex-lg-column my-auto">
           <Nav pills className="side-menu-nav justify-content-center" role="tablist">
-            <NavItem id="profile">
+            <NavItem id="profile" onClick={() => { toggleTab('profile'); }}>
               <NavLink id="pills-user-tab" className={classnames({ active: activeTab === 'profile' })} onClick={() => { toggleTab('profile'); }}>
                 <i className="ri-user-2-line"></i>
               </NavLink>
@@ -80,13 +81,13 @@ function LeftSidebarMenu(props) {
             <UncontrolledTooltip target="profile" placement="top">
               Profile
             </UncontrolledTooltip>
-            <NavItem id="Chats">
+            <NavItem id="Chats" onClick={() => { toggleTab('chat'); }}>
               <NavLink id="pills-chat-tab" className={classnames({ active: activeTab === 'chat' })} onClick={() => { toggleTab('chat'); }}>
                 <i className="ri-message-3-line"></i>
               </NavLink>
             </NavItem>
             <UncontrolledTooltip target="Chats" placement="top">
-            Chats
+              Chats
             </UncontrolledTooltip>
             {/* <NavItem id="Groups">
               <NavLink id="pills-groups-tab" className={classnames({ active: activeTab === 'group' })} onClick={() => { toggleTab('group'); }}>
@@ -96,13 +97,13 @@ function LeftSidebarMenu(props) {
             <UncontrolledTooltip target="Groups" placement="top">
             Groups
             </UncontrolledTooltip> */}
-            <NavItem id="Contacts">
+            <NavItem id="Contacts" onClick={() => { toggleTab('contacts'); }} >
               <NavLink id="pills-contacts-tab" className={classnames({ active: activeTab === 'contacts' })} onClick={() => { toggleTab('contacts'); }}>
                 <i className="ri-contacts-line"></i>
               </NavLink>
             </NavItem>
             <UncontrolledTooltip target="Contacts" placement="top">
-            Contacts
+              Contacts
             </UncontrolledTooltip>
             {/* <NavItem id="Settings">
               <NavLink id="pills-setting-tab" className={classnames({ active: activeTab === 'settings' })} onClick={() => { toggleTab('settings'); }}>
@@ -112,7 +113,7 @@ function LeftSidebarMenu(props) {
             <UncontrolledTooltip target="Settings" placement="top">
               Settings
             </UncontrolledTooltip> */}
-            <Dropdown nav isOpen={dropdownOpenMobile} toggle={toggleMobile} className="profile-user-dropdown d-inline-block d-lg-none">
+            <Dropdown nav isOpen={dropdownOpenMobile} toggle={toggleMobile} onClick={toggleMobile} className="profile-user-dropdown d-inline-block d-lg-none">
               <DropdownToggle nav>
                 <img src={avatar1} alt="chatvia" className="profile-user rounded-circle" />
               </DropdownToggle>
@@ -120,7 +121,7 @@ function LeftSidebarMenu(props) {
                 <DropdownItem onClick={() => { toggleTab('profile'); }}>Profile <i className="ri-profile-line float-right text-muted"></i></DropdownItem>
                 {/* <DropdownItem onClick={() => { toggleTab('settings'); }}>Setting <i className="ri-settings-3-line float-right text-muted"></i></DropdownItem> */}
                 <DropdownItem divider />
-                <DropdownItem href="/logout">Log out <i className="ri-logout-circle-r-line float-right text-muted"></i></DropdownItem>
+                <DropdownItem tag={Link} to="/logout">Log out <i className="ri-logout-circle-r-line float-right text-muted"></i></DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </Nav>
@@ -187,7 +188,7 @@ function LeftSidebarMenu(props) {
                 <DropdownItem onClick={() => { toggleTab('profile'); }}>Profile <i className="ri-profile-line float-right text-muted"></i></DropdownItem>
                 {/* <DropdownItem onClick={() => { toggleTab('settings'); }}>Setting <i className="ri-settings-3-line float-right text-muted"></i></DropdownItem> */}
                 <DropdownItem divider />
-                <DropdownItem href="/logout">Log out <i className="ri-logout-circle-r-line float-right text-muted"></i></DropdownItem>
+                <DropdownItem tag={Link} to="/logout">Log out <i className="ri-logout-circle-r-line float-right text-muted"></i></DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </Nav>

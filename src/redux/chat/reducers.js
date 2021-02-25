@@ -64,6 +64,9 @@ const Chat = (state = INIT_STATE, action) => {
       return { 
               ...state,
         write_ats : action.payload };
+
+    case types.INIT_CHAT:
+      return INIT_STATE;
         
     default: return { ...state };
   }
