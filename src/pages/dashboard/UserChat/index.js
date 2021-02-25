@@ -88,7 +88,6 @@ function UserChat(props) {
 
       case "fileMessage":
         messageObj = {
-          id: "tmp" + Date.now(),
           content: data.name,
           size: data.size,
           type: 2
@@ -97,7 +96,6 @@ function UserChat(props) {
 
       case "imageMessage":
         messageObj = {
-          id: "tmp" + Date.now(),
           content: data.name,
           size: data.size,
           type: 3
@@ -107,6 +105,7 @@ function UserChat(props) {
       default:
         break;
     }
+    messageObj.id = "tmp" + Date.now();
     messageObj.from = me.user_id;
     messageObj.time = new Date();
 
@@ -242,6 +241,7 @@ function UserChat(props) {
                         const time_str = engine.date2str(message.time, "MM/dd hh:mm");
                         const isToday = false;
                         const key = message._id?message._id:("msg"+index);
+                        
                         return (
                         isToday ? 
                           <li key={"dayTitle" + index}>
