@@ -3,12 +3,14 @@ import { Nav, NavItem, NavLink, UncontrolledTooltip, Dropdown, DropdownItem, Dro
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
+import isElectron from 'is-electron';
 
 import { setActiveTab } from "../../redux/actions";
 
 //Import Images
 import logo from "../../assets/images/logo.svg"
 import avatar1 from "../../assets/images/favicon.ico";
+import engine from "../../utils/engine";
 
 //i18n
 import i18n from '../../i18n';
@@ -35,6 +37,13 @@ function LeftSidebarMenu(props) {
 
   const toggleTab = tab => {
     props.setActiveTab(tab)
+  }
+
+  const reload = () => {
+    if (isElectron())
+      engine.runCommand("reload");
+    else
+      window.location.reload();
   }
 
   const activeTab = props.activeTab;
@@ -115,7 +124,23 @@ function LeftSidebarMenu(props) {
             </UncontrolledTooltip> */}
             <Dropdown nav isOpen={dropdownOpenMobile} toggle={toggleMobile} onClick={toggleMobile} className="profile-user-dropdown d-inline-block d-lg-none">
               <DropdownToggle nav>
-                <img src={avatar1} alt="chatvia" className="profile-user rounded-circle" />
+                {/* <img src={avatar1} alt="chatvia" className="profile-user rounded-circle" /> */}
+                <div className="avatar-container">
+                {
+                  me && (me.avatar_url?
+                    <div className={"chat-user-img align-self-center avatar-align-center"}>
+                      <img src={me.avatar_url} className="rounded-circle avatar-xs" alt="chatvia" />
+                    </div>
+                    :
+                    <div className={"chat-user-img align-self-center avatar-align-center"}>
+                      <div className="avatar-xs">
+                        <span className="avatar-title rounded-circle bg-soft-primary text-primary">
+                          {me.user_name?me.user_name.charAt(0):""}
+                        </span>
+                      </div>
+                    </div>)
+                }
+                </div>
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem onClick={() => { toggleTab('profile'); }}>Profile <i className="ri-profile-line float-right text-muted"></i></DropdownItem>
@@ -164,6 +189,14 @@ function LeftSidebarMenu(props) {
                 Dark / Light Mode
               </UncontrolledTooltip>
             </NavItem> */}
+            <NavItem>
+              <NavLink id="reload" onClick={() => { reload(); }} >
+                <i className="ri-refresh reload-icon"></i>
+              </NavLink>
+              <UncontrolledTooltip target="reload" placement="right">
+                Reload
+              </UncontrolledTooltip>
+            </NavItem>
             <Dropdown nav isOpen={dropdownOpen} className="btn-group dropup profile-user-dropdown" toggle={toggle}>
               <DropdownToggle nav>
                 {/* <img src={avatar1} alt="" className="profile-user rounded-circle" /> */}

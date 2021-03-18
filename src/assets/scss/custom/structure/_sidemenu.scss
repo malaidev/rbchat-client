@@ -52,6 +52,13 @@
             content: $theme-mode-icon;
         }
     }
+
+    .reload-icon {
+        font-size: 24px;
+        &:before {
+            content: $reload-icon;
+        }
+    }
 }
 
 .side-menu-nav{

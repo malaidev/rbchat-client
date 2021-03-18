@@ -5,6 +5,8 @@ import ChatLeftSidebar from "./ChatLeftSidebar";
 import UserChat from "./UserChat/";
 import Modal from 'react-modal';
 import { connect } from "react-redux";
+import { UncontrolledTooltip } from 'reactstrap';
+import { Link } from "react-router-dom";
 
 import {updateAll, updateRooms, updateUsers, updateWriteAts, setActiveRoom, openGlobalModal, closeGlobalModal, setActiveTab} from '../../redux/actions';
 import api from '../../apis';
@@ -209,9 +211,24 @@ class Index extends Component {
         zIndex: 99999
       }
     };
+    
+    const reload = () => {
+      if (isElectron())
+        engine.runCommand("reload");
+      else
+        window.location.reload();
+    }
 
     return (
       <React.Fragment>
+        <div className="mobile-reload-div d-block d-lg-none mr-2">
+          <Link id="reload-mobile-header" onClick={() => { reload(); }}>
+            <i className="ri-refresh reload-icon"></i>
+          </Link>
+          <UncontrolledTooltip target="reload-mobile-header" placement="bottom">
+            Reload
+          </UncontrolledTooltip>
+        </div>
         {/* chat left sidebar */}
         <ChatLeftSidebar chatdata={this.props.chatdata} />
 

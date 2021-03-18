@@ -411,3 +411,11 @@ body {
     padding-right: 8px;
   }
 }
+
+.reload-icon {
+  font-size: 20px;
+  color: #a6b0cf;
+  &:before {
+    content: $reload-icon;
+  }
+}

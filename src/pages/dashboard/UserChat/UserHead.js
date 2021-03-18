@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { openUserSidebar,updateRooms } from "../../../redux/actions";
+import engine from '../../../utils/engine';
 
 function UserHead(props) {
   //const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -39,7 +40,7 @@ function UserHead(props) {
       <div className="p-3 p-lg-4 border-bottom">
         <Row className="align-items-center">
           <Col sm={12} xs={12}>
-            <Media className="align-items-center">
+            <Media className="align-items-center" style={{paddingRight: 40}}>
               <div className="d-block d-lg-none mr-2">
                 <Link to="#" onClick={(e) => closeUserChat(e)} className="user-chat-remove text-muted font-size-16 p-2">
                 <i className="ri-arrow-left-s-line"></i></Link>
