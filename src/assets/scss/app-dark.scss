@@ -35,3 +35,10 @@ File: Main dark Css File
 @import "custom/pages/user-chat";
 @import "custom/pages/user-profile-details";
 @import "custom/pages/authentication";
+
+.mobile-reload-div {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 99999;
+}

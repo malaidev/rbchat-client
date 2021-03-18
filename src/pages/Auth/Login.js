@@ -38,12 +38,12 @@ const Login = (props) => {
   // validation
   const formik = useFormik({
     initialValues: {
-      email: 'magic0619',
-      password: '1234567890'
+      email: '',
+      password: ''
     },
     validationSchema: Yup.object({
-      email: Yup.string().required('Please Enter Your Username'),
-      password: Yup.string().required('Please Enter Your Password')
+      email: Yup.string().required('Please enter your username'),
+      password: Yup.string().required('Please enter your password')
     }),
     onSubmit: values => {
       props.loginUser(values.email, values.password, props.history);
@@ -74,7 +74,7 @@ const Login = (props) => {
     <div className="account-pages login-page">
       <Container>
         <Row className="justify-content-center">
-          <Col md={8} lg={6} xl={5} >
+          <Col md={8} lg={6} xl={5} style={{paddingLeft: 24, paddingRight: 24}}>
             <div className="text-center mb-4">
               <span className="auth-logo mb-5 d-block">
                 <img src={logo_big} alt="" height="30" className="logo logo-light" />
@@ -107,7 +107,7 @@ const Login = (props) => {
                           id="email"
                           name="email"
                           className="form-control bg-soft-light border-light"
-                          placeholder="Enter username"
+                          placeholder="Username..."
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.email}
@@ -124,7 +124,7 @@ const Login = (props) => {
                       {/* <div className="float-right">
                         <Link to="forget-password" className="text-muted font-size-13">{t('Forgot password')}?</Link>
                       </div> */}
-                      <Label>{t('Password')}</Label>
+                      <Label>Password</Label>
                       <InputGroup className="mb-3 bg-soft-light input-group-lg rounded-lg">
                         <InputGroupAddon addonType="prepend">
                           <span className="input-group-text border-light text-muted">
@@ -136,7 +136,7 @@ const Login = (props) => {
                           id="password"
                           name="password"
                           className="form-control bg-soft-light border-light"
-                          placeholder="Enter Password"
+                          placeholder="Password..."
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.password}

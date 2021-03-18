@@ -28,3 +28,11 @@
   align-items: center;
   min-height: 700px;
 }
+
+.login-page .form-group .input-group {
+  height: calc(1.5em + 1rem + 6px);
+
+  .invalid-feedback {
+    text-align: right;
+  }
+}

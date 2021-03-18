@@ -1,4 +1,4 @@
-const { app, Menu, Tray, screen, BrowserWindow, ipcMain, shell } = require('electron');
+const { app, Menu, Tray, screen, BrowserWindow, ipcMain, shell, globalShortcut } = require('electron');
 
 const path = require('path');
 const url = require('url');
@@ -52,6 +52,17 @@ function createWindow() {
       }
     },
     { 
+      label: 'Restart', 
+      click:  function(){
+        app.relaunch();
+        app.isQuiting = true;
+        app.quit();
+      } 
+    },
+    { 
+      type: 'separator'
+    },
+    { 
       label: 'Exit', 
       click:  function(){
         app.isQuiting = true;
@@ -65,6 +76,9 @@ function createWindow() {
   tray.setToolTip('RBChat');
   tray.setContextMenu(trayMenu);
   
+  globalShortcut.register('f5', function() {
+    mainWindow.reload()
+	})
   // const badgeOptions = {
   //   color: 'red',
   //   font: '12px arial'
@@ -117,6 +131,13 @@ if (!gotTheLock) {
   });
   
   ipcMain.on('highlight', (event, arg) => {
-    tray.setImage(path.join(__dirname, arg?tray_highlighted:tray_normal));
+    if (tray)
+      tray.setImage(path.join(__dirname, arg?tray_highlighted:tray_normal));
   });
+  
+  ipcMain.on('reload', (event, arg) => {
+    if (mainWindow)
+		  mainWindow.reload()
+  });
+
 }
